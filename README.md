@@ -37,7 +37,7 @@ Este repositorio contiene el código fuente de mi portfolio personal: una web es
 
 ## Cómo actualizar esta web
 
-El propio sitio incluye una guía de mantenimiento en [`como-actualizar.html`](como-actualizar.html), pensada para poder añadir nuevos proyectos, herramientas o entradas sin necesidad de rediseñar nada.
+El propio sitio incluye una guía de mantenimiento en [`como-actualizar.html`]https://alejandroreylab.github.io/portfolio/como-se-hizo.html, pensada para poder añadir nuevos proyectos, herramientas o entradas sin necesidad de rediseñar nada.
 
 ## Licencia
 
