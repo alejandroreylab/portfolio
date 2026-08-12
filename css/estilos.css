@@ -1,0 +1,791 @@
+/* ════════════════════════════════════════════════════════════════
+   ESTILOS COMPARTIDOS DEL PORTFOLIO — "Laboratorio nocturno"
+   Esta hoja la usan todas las páginas. Cambia aquí un color
+   y se actualiza en toda la web.
+   ════════════════════════════════════════════════════════════════ */
+:root {
+  --fondo:         #16181b;   /* grafito, fondo general        */
+  --panel:         #1e2126;   /* tarjetas y paneles            */
+  --panel-borde:   #2b2f35;   /* bordes sutiles                */
+  --menta:         #5dcaa5;   /* pistas del circuito, acentos  */
+  --menta-apagada: #2a3a34;   /* pista sin iluminar            */
+  --ambar:         #fac775;   /* hitos activos, botones        */
+  --ambar-fuerte:  #ef9f27;   /* hover, detalles               */
+  --texto:         #eef0ec;
+  --texto-suave:   #a9aeab;
+  --ancho-max:     1080px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--fondo);
+  background-image: radial-gradient(circle, #22262b 1px, transparent 1px);
+  background-size: 26px 26px;       /* rejilla de puntos, estilo placa, en toda la página */
+  color: var(--texto);
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+h1, h2, h3 { font-family: 'Chakra Petch', sans-serif; line-height: 1.2; }
+.mono { font-family: 'IBM Plex Mono', monospace; }
+
+a { color: var(--menta); }
+:focus-visible { outline: 2px solid var(--ambar); outline-offset: 3px; border-radius: 2px; }
+
+img { max-width: 100%; height: auto; }
+
+.contenedor { max-width: var(--ancho-max); margin: 0 auto; padding: 0 20px; }
+
+section { padding: 56px 0; }
+
+/* ── Títulos de sección ──────────────────────────────────────────
+   CORREGIDO: la doble pista decorativa (menta + ámbar) ahora
+   reserva su propio espacio (66px) para que nunca se superponga
+   con el texto del título. ─────────────────────────────────────── */
+.titulo-seccion {
+  font-size: 1.7rem; font-weight: 600; margin-bottom: 8px;
+  display: flex; align-items: center;
+}
+.titulo-seccion::before {
+  content: ""; width: 26px; height: 2px; flex: none;
+  background: var(--menta);
+  box-shadow: 34px 0 0 var(--ambar-fuerte);
+  margin-right: 66px;               /* 26px de pista + 34px de salto + aire */
+}
+.subtitulo-seccion {
+  color: var(--texto-suave); margin-bottom: 36px; max-width: 640px;
+  padding-left: 92px;               /* alineado con el texto del título */
+}
+
+/* Cabecera de cada página interior */
+.cabecera-pagina { padding: 56px 0 8px; }
+.cabecera-pagina .eyebrow { color: var(--menta); font-size: .85rem; letter-spacing: .05em; }
+.cabecera-pagina h1 { font-size: clamp(1.9rem, 5vw, 2.6rem); font-weight: 700; margin-top: 8px; }
+
+/* ════════════ NAVEGACIÓN (compartida) ════════════ */
+nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(22,24,27,.94); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--panel-borde);
+}
+.nav-inner {
+  max-width: var(--ancho-max); margin: 0 auto; padding: 12px 20px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.logo {
+  font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 1rem;
+  color: var(--texto); text-decoration: none; letter-spacing: .04em; flex: none;
+}
+.logo span { color: var(--menta); }
+.nav-enlaces {
+  display: flex; gap: 20px; list-style: none;
+  overflow-x: auto;                 /* en móvil se desliza en horizontal */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.nav-enlaces::-webkit-scrollbar { display: none; }
+.nav-enlaces a {
+  color: var(--texto-suave); text-decoration: none; font-size: .92rem;
+  white-space: nowrap; transition: color .2s; padding: 4px 0;
+}
+.nav-enlaces a:hover { color: var(--ambar); }
+.nav-enlaces a.actual { color: var(--ambar); border-bottom: 2px solid var(--ambar-fuerte); }
+
+/* ════════════ HÉROE / PORTADA (index) ════════════ */
+.heroe {
+  padding: 72px 0 56px;
+}
+.heroe-eyebrow { color: var(--menta); font-size: .88rem; letter-spacing: .05em; }
+.heroe h1 {
+  font-size: clamp(2.2rem, 7vw, 3.8rem); font-weight: 700;
+  letter-spacing: .02em; margin: 10px 0 6px;
+}
+.heroe h1 em { font-style: normal; color: var(--ambar); }
+.heroe-rol { color: var(--texto-suave); font-size: 1.1rem; max-width: 560px; }
+
+.instruccion-circuito { margin: 44px 0 4px; color: var(--texto-suave); font-size: .85rem; }
+.instruccion-circuito b { color: var(--ambar); font-weight: 500; }
+
+/* Circuito SVG (escritorio) */
+.circuito-escritorio { width: 100%; height: auto; display: block; }
+.circuito-escritorio .rail-nombre {
+  fill: var(--texto-suave); font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; letter-spacing: .12em;
+}
+.circuito-escritorio .hito { cursor: pointer; }
+.circuito-escritorio .hito .pad {
+  fill: var(--fondo); stroke: var(--menta); stroke-width: 1.6;
+}
+.circuito-escritorio .hito .simbolo { stroke: var(--menta); fill: none; stroke-width: 1.6; }
+.circuito-escritorio .hito .relleno { fill: var(--menta); stroke: none; }
+.circuito-escritorio .hito text {
+  fill: var(--texto-suave); font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px; transition: fill .3s;
+}
+.circuito-escritorio .hito:hover .pad,
+.circuito-escritorio .hito:focus-visible .pad { stroke: var(--ambar); }
+.circuito-escritorio .hito.encendido .pad { stroke: var(--ambar); }
+.circuito-escritorio .hito.encendido .simbolo { stroke: var(--ambar); }
+.circuito-escritorio .hito.encendido .relleno { fill: var(--ambar); }
+.circuito-escritorio .hito.activo .pad { fill: #2b2413; stroke: var(--ambar-fuerte); stroke-width: 2.2; }
+.circuito-escritorio .hito.activo text { fill: var(--ambar); }
+.pista-luz { transition: stroke-dashoffset .7s ease; }
+#tramo-final { opacity: 0; transition: opacity .4s; }
+#tramo-final.encendido { opacity: 1; }
+
+/* Tarjeta de detalle del hito seleccionado */
+.tarjeta-hito {
+  margin-top: 18px; background: var(--panel);
+  border: 1px solid var(--panel-borde); border-radius: 12px;
+  padding: 22px 26px; min-height: 158px;
+  display: grid; gap: 4px; max-width: 720px;
+}
+.tarjeta-hito .periodo { color: var(--ambar); font-size: .82rem; letter-spacing: .04em; }
+.tarjeta-hito h3 { font-size: 1.25rem; font-weight: 600; }
+.tarjeta-hito .entidad { color: var(--menta); font-size: .95rem; }
+.tarjeta-hito p { color: var(--texto-suave); font-size: .95rem; margin-top: 6px; }
+.insignia-rail {
+  display: inline-block; width: fit-content; margin-top: 6px;
+  font-family: 'IBM Plex Mono', monospace; font-size: .7rem;
+  padding: 2px 10px; border-radius: 999px;
+  background: #24312c; color: var(--menta);
+}
+.insignia-rail.prof { background: #33290f; color: var(--ambar); }
+
+/* Circuito vertical (móvil) */
+.circuito-movil { display: none; list-style: none; margin-top: 32px; }
+.circuito-movil li {
+  border-left: 2px solid var(--menta-apagada);
+  padding: 0 0 8px 24px; position: relative;
+}
+.circuito-movil li::before {
+  content: ""; position: absolute; left: -8px; top: 10px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--fondo); border: 2px solid var(--menta);
+}
+.circuito-movil li.abierto { border-left-color: var(--menta); }
+.circuito-movil li.abierto::before { border-color: var(--ambar-fuerte); background: #2b2413; }
+.circuito-movil button {
+  background: none; border: none; color: var(--texto);
+  font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; text-align: left;
+  padding: 6px 0 10px; cursor: pointer; width: 100%;
+}
+.circuito-movil button .anio {
+  color: var(--ambar); font-family: 'IBM Plex Mono', monospace;
+  font-size: .8rem; display: block;
+}
+.circuito-movil .detalle { display: none; padding-bottom: 14px; }
+.circuito-movil li.abierto .detalle { display: block; }
+.circuito-movil .detalle .entidad { color: var(--menta); font-size: .9rem; display: block; }
+.circuito-movil .detalle p { color: var(--texto-suave); font-size: .92rem; margin-top: 4px; }
+
+.botones-heroe { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 36px; }
+
+/* ════════════ SOBRE MÍ ════════════ */
+.sobre-mi-texto { max-width: 720px; color: var(--texto-suave); display: grid; gap: 16px; }
+.sobre-mi-texto strong { color: var(--texto); font-weight: 500; }
+
+/* Sobre mí: el condensador que se carga con el scroll */
+.parrafo-condensador { display: flex; gap: 22px; align-items: flex-start; }
+.parrafo-condensador svg { flex: 0 0 54px; margin-top: 6px; }
+.cond-trazo { stroke: var(--menta); stroke-width: 2; fill: none; }
+.cond-carga {
+  fill: var(--ambar); opacity: .85;
+  transform-box: fill-box; transform-origin: bottom;
+  transform: scaleY(0); transition: transform .2s linear;
+}
+
+/* ════════════ PORTFOLIO DE PROYECTOS ════════════ */
+
+/* Mini-circuito de roles: bombillas multiselección */
+.mini-circuito { display: flex; justify-content: center; margin-bottom: 18px; }
+.mini-circuito svg { max-width: 560px; width: 100%; height: auto; }
+.mc-pista { stroke: var(--menta-apagada); stroke-width: 2; fill: none; }
+.mc-pista.luz { stroke: var(--menta); transition: stroke-dashoffset .5s ease; }
+.mc-bombilla { cursor: pointer; }
+.mc-bombilla .vidrio { fill: var(--panel); stroke: var(--menta-apagada); stroke-width: 2; transition: all .3s; }
+.mc-bombilla .filamento { stroke: var(--menta-apagada); stroke-width: 2; transition: stroke .3s; }
+.mc-bombilla text {
+  fill: var(--texto-suave); font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; text-anchor: middle; transition: fill .3s;
+}
+.mc-bombilla:hover .vidrio, .mc-bombilla:focus-visible .vidrio { stroke: var(--ambar); }
+.mc-bombilla.encendida .vidrio {
+  fill: #2b2413; stroke: var(--ambar);
+  filter: drop-shadow(0 0 6px rgba(250, 199, 117, .55));
+}
+.mc-bombilla.encendida .filamento { stroke: var(--ambar); }
+.mc-bombilla.encendida text { fill: var(--ambar); }
+.mc-bombilla:focus, .mc-bombilla:focus-visible { outline: none; }
+
+.rejilla-proyectos {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 22px;
+}
+.tarjeta-proyecto {
+  background: var(--panel); border: 1px solid var(--panel-borde);
+  border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;
+  transition: transform .2s, border-color .2s;
+}
+.tarjeta-proyecto:hover { transform: translateY(-4px); border-color: var(--menta); }
+/* Color de categoría en el contenedor, versión reforzada: cada rol tiñe
+   ligeramente el fondo de la tarjeta, colorea todo el borde y añade una
+   banda izquierda gruesa (docente = menta, formador = ámbar, gestor = azul).
+   Van después de :hover para tener prioridad; al pasar el ratón, el borde
+   se aviva con el color intenso del propio rol. */
+.tarjeta-proyecto[data-roles~="docente"] {
+  background: #1b2621;
+  border-color: #35564a;
+  border-left: 5px solid var(--menta);
+}
+.tarjeta-proyecto[data-roles~="docente"]:hover { border-color: var(--menta); }
+
+.tarjeta-proyecto[data-roles~="formador"] {
+  background: #262115;
+  border-color: #5c4a22;
+  border-left: 5px solid var(--ambar);
+}
+.tarjeta-proyecto[data-roles~="formador"]:hover { border-color: var(--ambar); }
+
+.tarjeta-proyecto[data-roles~="gestor"] {
+  background: #1a2330;
+  border-color: #33506e;
+  border-left: 5px solid #6fa8d8;
+}
+.tarjeta-proyecto[data-roles~="gestor"]:hover { border-color: #6fa8d8; }
+.tarjeta-img {
+  aspect-ratio: 4 / 3; background: #21272b; display: flex;
+  align-items: center; justify-content: center; color: #46524d;
+  font-size: .78rem; letter-spacing: .05em;
+  background-image: radial-gradient(circle, #2a3138 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+.tarjeta-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tarjeta-cuerpo { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.tarjeta-cuerpo h3 { font-size: 1.08rem; font-weight: 600; }
+.tarjeta-cuerpo p { color: var(--texto-suave); font-size: .92rem; flex: 1; }
+.etiquetas { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.etiqueta {
+  font-family: 'IBM Plex Mono', monospace; font-size: .72rem;
+  padding: 3px 10px; border-radius: 999px;
+  background: rgba(0, 0, 0, .28);              /* neutra translúcida: flota bien   */
+  color: var(--texto-suave);                   /* sobre cualquier fondo de bloque  */
+  border: 1px solid rgba(238, 240, 236, .14);
+}
+.etiqueta.rol { background: #33290f; color: var(--ambar); border: none; }          /* base (formador) */
+.etiqueta.rol-docente { background: #1e2f26; color: var(--menta); border: none; }  /* verde menta      */
+.etiqueta.rol-gestor  { background: #1c2b3d; color: #6fa8d8; border: none; }       /* azul frío        */
+.etiqueta.tema-steam {
+  background: rgba(179, 156, 224, .14);        /* violeta luminoso translúcido:    */
+  color: #c9b4ee;                              /* distinto de menta/ámbar/azul y   */
+  border: 1px solid rgba(179, 156, 224, .38);  /* legible sobre los tres tintes    */
+}
+.sin-resultados {
+  display: none; color: var(--texto-suave); background: var(--panel);
+  border: 1px dashed var(--panel-borde); border-radius: 12px;
+  padding: 32px; text-align: center;
+}
+
+/* ════════════ FORMACIÓN ════════════ */
+.formacion-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.lista-formacion { list-style: none; display: grid; gap: 18px; }
+.lista-formacion li { border-left: 2px solid var(--menta-apagada); padding-left: 18px; }
+.lista-formacion .anios { color: var(--ambar); font-size: .8rem; }
+.lista-formacion h3 { font-size: 1.02rem; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif; }
+.lista-formacion h3 em { color: var(--texto-suave); font-weight: 400; font-size: .88em; }
+.lista-formacion .centro { color: var(--texto-suave); font-size: .9rem; }
+.subtitulo-columna {
+  font-family: 'Chakra Petch', sans-serif; font-size: 1.1rem; font-weight: 600;
+  color: var(--menta); margin-bottom: 20px;
+}
+/* Subtítulos temáticos dentro de la formación complementaria */
+.subtitulo-tema {
+  font-family: 'Chakra Petch', sans-serif; font-size: .95rem; font-weight: 600;
+  color: var(--ambar); letter-spacing: .03em; margin: 30px 0 14px;
+}
+.subtitulo-tema:first-child { margin-top: 0; }
+/* Filtros desplegables del repositorio */
+.filtros-repositorio { display: flex; flex-wrap: wrap; gap: 14px 18px; align-items: flex-end; }
+.filtros-repositorio .filtro { display: grid; gap: 6px; }
+.filtros-repositorio label { color: var(--texto-suave); font-size: .78rem; }
+.filtros-repositorio select {
+  background: var(--panel); color: var(--texto);
+  border: 1px solid var(--panel-borde); border-radius: 10px;
+  padding: 10px 14px; font: inherit; font-size: .92rem;
+  min-width: 210px; cursor: pointer; transition: border-color .2s;
+}
+.filtros-repositorio select:hover { border-color: var(--menta); }
+.filtros-repositorio option { background: var(--panel); color: var(--texto); }
+.boton-limpiar {
+  background: none; color: var(--texto-suave);
+  border: 1px solid var(--panel-borde); border-radius: 999px;
+  padding: 9px 18px; font-size: .8rem; cursor: pointer; transition: all .2s;
+}
+.boton-limpiar:hover { border-color: var(--ambar); color: var(--ambar); }
+.recuento { color: var(--texto-suave); font-size: .8rem; margin: 14px 0 26px; }
+
+/* ════════════ COMPETENCIAS ════════════ */
+.rejilla-competencias { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 22px; }
+.grupo-competencia {
+  background: var(--panel); border: 1px solid var(--panel-borde);
+  border-radius: 12px; padding: 20px 22px;
+}
+.grupo-competencia h3 {
+  font-size: 1rem; font-weight: 600; margin-bottom: 12px; color: var(--ambar);
+  display: flex; align-items: center; gap: 10px;
+}
+.grupo-competencia h3 svg {
+  width: 22px; height: 22px; flex: none;
+  stroke: var(--menta); fill: none;
+  stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+}
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font-size: .82rem; padding: 4px 12px; border-radius: 999px;
+  background: #24282e; color: var(--texto-suave); border: 1px solid var(--panel-borde);
+}
+.chip.dificultad-facil      { background: #1e2f26; color: #7bc99a; border-color: #2c4436; }
+.chip.dificultad-intermedio { background: #33290f; color: var(--ambar);  border-color: #4a3a17; }
+.chip.dificultad-avanzado   { background: #3a1f1f; color: #e08585; border-color: #532b2b; }
+
+/* Iconos que se dibujan al entrar en pantalla.
+   Solo se animan si global.js está activo (clase .revelar);
+   cada familia define su propio ritmo con --trazo en el HTML. */
+.grupo-competencia.revelar .icono-dibujable :is(path, rect, circle, line) {
+  stroke-dasharray: 1; stroke-dashoffset: 1;
+}
+.grupo-competencia.revelar.visible .icono-dibujable :is(path, rect, circle, line) {
+  transition: stroke-dashoffset var(--trazo, 1.2s) ease .15s; stroke-dashoffset: 0;
+}
+
+/* LED por chip: se enciende cuando la tarjeta entra en pantalla */
+.chip .led-chip {
+  width: 7px; height: 7px; border-radius: 50%;
+  display: inline-block; margin-right: 7px; vertical-align: middle;
+  background: var(--menta); box-shadow: 0 0 5px var(--menta);
+}
+.grupo-competencia.revelar .chip .led-chip {
+  background: var(--menta-apagada); box-shadow: none;
+  transition: background .5s ease .4s, box-shadow .5s ease .4s;
+}
+.grupo-competencia.revelar.visible .chip .led-chip {
+  background: var(--menta); box-shadow: 0 0 5px var(--menta);
+}
+
+/* Pista de encendido bajo cada familia */
+.pista-nivel { position: relative; height: 2px; background: var(--menta-apagada); border-radius: 2px; margin-top: 14px; }
+.pista-nivel-luz {
+  position: absolute; left: 0; top: 0; height: 100%; width: 100%;
+  background: var(--menta); border-radius: 2px;
+}
+.pista-nivel-luz::after {
+  content: ''; position: absolute; right: -3px; top: -2px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--ambar); box-shadow: 0 0 6px var(--ambar);
+}
+.grupo-competencia.revelar .pista-nivel-luz { width: 0; transition: width 1s ease .3s; }
+.grupo-competencia.revelar.visible .pista-nivel-luz { width: 100%; }
+
+/* Conexión entre familias: chips con el mismo data-tool */
+.chip.conectado { border-color: var(--menta); color: var(--menta); box-shadow: 0 0 8px rgba(93, 202, 165, .25); }
+.grupo-competencia.origen { border-color: var(--menta); }
+
+/* ════════════ CONTACTO: BORNES Y TERMINAL ════════════ */
+/* Cada vía de contacto es un borne (conector) con su vía de placa
+   en el borde izquierdo. Para añadir una nueva, copia un <a class="borne">
+   en contacto.html: aquí no hay que tocar nada. */
+.intro-contacto { color: var(--texto-suave); max-width: 620px; margin-bottom: 28px; }
+.intro-contacto strong { color: var(--texto); font-weight: 500; }
+
+.rejilla-bornes { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 22px; }
+.borne {
+  position: relative; display: grid; gap: 6px; text-decoration: none; color: inherit;
+  background: var(--panel); border: 1px solid var(--panel-borde);
+  border-left: 3px solid var(--menta); border-radius: 12px; padding: 22px 22px 20px;
+  transition: border-color .2s, transform .2s, background .2s;
+}
+.borne:hover { background: #22262c; border-color: var(--ambar); border-left-color: var(--ambar); transform: translateY(-4px); }
+/* Vía de placa PCB asomando por el borde izquierdo */
+.borne::after {
+  content: ""; position: absolute; left: -7px; top: 26px; width: 10px; height: 10px;
+  border-radius: 50%; background: var(--fondo); border: 2px solid var(--menta); transition: border-color .2s;
+}
+.borne:hover::after { border-color: var(--ambar); }
+/* La vía de La Estación es contexto, no un canal de encargos propios:
+   pista apagada para que no compita con el correo y LinkedIn */
+.borne.secundario { border-left-color: var(--menta-apagada); }
+.borne.secundario::after { border-color: var(--menta-apagada); }
+.borne svg {
+  width: 26px; height: 26px; margin-bottom: 4px; flex: none;
+  stroke: var(--menta); fill: none; stroke-width: 1.6;
+  stroke-linecap: round; stroke-linejoin: round; transition: stroke .2s;
+}
+.borne:hover svg { stroke: var(--ambar); }
+.borne h3 { font-size: 1.05rem; font-weight: 600; }
+.borne .valor { color: var(--menta); font-size: .88rem; word-break: break-word; }
+.borne .para-que { color: var(--texto-suave); font-size: .85rem; line-height: 1.5; margin-top: 4px; }
+.borne .pin {
+  position: absolute; top: 16px; right: 18px; font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem; color: var(--texto-suave); letter-spacing: .08em;
+}
+
+/* Terminal: el laboratorio abierto a contribuciones */
+.terminal {
+  max-width: 720px; margin-top: 40px; background: #14161a;
+  border: 1px solid var(--panel-borde); border-radius: 12px; overflow: hidden;
+  font-family: 'IBM Plex Mono', monospace; font-size: .88rem;
+}
+.terminal-barra {
+  display: flex; align-items: center; gap: 8px; padding: 10px 14px;
+  background: #181b1f; border-bottom: 1px solid var(--panel-borde);
+}
+.terminal-barra i { width: 10px; height: 10px; border-radius: 50%; background: #3a4048; display: block; }
+.terminal-barra .titulo { margin-left: 8px; color: var(--texto-suave); font-size: .76rem; letter-spacing: .05em; }
+.terminal-cuerpo { padding: 22px; display: grid; gap: 4px; color: var(--texto-suave); line-height: 1.9; }
+.terminal-cuerpo .prompt { color: var(--menta); }
+.terminal-cuerpo .clave { color: var(--ambar); }
+.terminal-cuerpo .salto { height: 10px; }
+.terminal-cuerpo a { color: var(--ambar); text-decoration: none; border-bottom: 1px dashed rgba(250, 199, 117, .45); }
+.terminal-cuerpo a:hover { border-bottom-style: solid; }
+/* Cursor parpadeante: reutiliza la animación del tecleo de la portada */
+.cursor-terminal {
+  display: inline-block; width: 9px; height: .95em; margin-left: 2px;
+  background: var(--ambar); vertical-align: -2px;
+  animation: parpadeo-cursor 1s steps(2) infinite;
+}
+
+.boton {
+  display: inline-block; padding: 11px 26px; border-radius: 8px;
+  text-decoration: none; font-weight: 500; font-size: .95rem; transition: all .2s;
+}
+.boton-principal { background: var(--menta); color: #0c2018; }
+.boton-principal:hover { background: var(--ambar); }
+.boton-secundario { border: 1px solid var(--menta); color: var(--menta); }
+.boton-secundario:hover { border-color: var(--ambar); color: var(--ambar); }
+
+/* ════════════ GUÍA DE ACTUALIZACIÓN ════════════ */
+.guia { max-width: 760px; }
+.guia h2 {
+  font-size: 1.25rem; font-weight: 600; color: var(--ambar);
+  margin: 44px 0 12px;
+}
+.guia p, .guia li { color: var(--texto-suave); }
+.guia ol, .guia ul { padding-left: 24px; display: grid; gap: 8px; margin: 12px 0; }
+.guia strong { color: var(--texto); font-weight: 500; }
+.codigo {
+  background: #14161a; border: 1px solid var(--panel-borde); border-radius: 10px;
+  padding: 16px 18px; margin: 14px 0; overflow-x: auto;
+  font-family: 'IBM Plex Mono', monospace; font-size: .8rem;
+  color: var(--menta); line-height: 1.6; white-space: pre;
+}
+.aviso {
+  border-left: 3px solid var(--ambar-fuerte); background: #221d10;
+  padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 14px 0;
+  font-size: .92rem; color: var(--texto-suave);
+}
+
+footer {
+  border-top: 1px solid var(--panel-borde); padding: 26px 0; margin-top: 40px;
+  text-align: center; color: var(--texto-suave); font-size: .85rem;
+}
+footer a { color: var(--texto-suave); }
+footer a.enlace-making-of { color: var(--menta); }
+footer a.enlace-making-of:hover { color: var(--ambar); }
+footer a:hover { color: var(--ambar); }
+.footer-nota { display: block; color: var(--texto-suave); font-size: .78rem; margin-top: 6px; }
+
+
+
+/* ════════════ LEYENDA DEL CIRCUITO ════════════ */
+.leyenda-circuito {
+  display: flex; gap: 26px; flex-wrap: wrap; align-items: center;
+  margin: 44px 0 4px; color: var(--texto-suave); font-size: .8rem;
+}
+.leyenda-circuito .clave { color: var(--ambar); }
+
+/* Etiquetas cortas de los hitos del circuito */
+.circuito-escritorio .hito text.corto { font-size: 12.5px; fill: var(--texto); }
+.circuito-escritorio .hito text.anio-etq { font-size: 11px; }
+.circuito-escritorio .hito.activo text.corto { fill: var(--ambar); }
+
+/* ════════════ DINAMISMO ════════════ */
+/* Electrones e⁻ que recorren las pistas: círculo con la letra e
+   y su carga negativa. Brillo contenido para no saturar la portada. */
+.electron { opacity: .55; }
+.electron .e-cuerpo { fill: var(--ambar); }   /* sin drop-shadow: el halo saturaba */
+.electron .e-letra {
+  fill: var(--fondo); font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px; font-weight: 600; font-style: italic;
+}
+.electron .e-carga { fill: var(--ambar); font-family: 'IBM Plex Mono', monospace; font-size: 8px; }
+/* Latido del nodo "Hoy" */
+.anillo-pulso {
+  fill: none; stroke: var(--menta); stroke-width: 1.4;
+  transform-box: fill-box; transform-origin: center;
+  animation: latido 2.6s ease-in-out infinite;
+}
+@keyframes latido {
+  0%, 100% { transform: scale(.8); opacity: .9; }
+  50%      { transform: scale(1.6); opacity: .15; }
+}
+/* Aparición suave al hacer scroll (la clase la añade js/global.js
+   solo si el visitante no tiene activado "reducir movimiento") */
+.revelar { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
+.revelar.visible { opacity: 1; transform: none; }
+
+/* ════════════ FORMACIÓN: BLOQUES TEMÁTICOS ════════════ */
+.bloque-tema {
+  background: var(--panel); border: 1px solid var(--panel-borde);
+  border-radius: 12px; padding: 22px 26px; margin-bottom: 22px;
+}
+.bloque-tema .subtitulo-tema { margin-top: 0; }
+/* Matriz de 2 columnas para los cursos dentro de cada bloque:
+   se rellena por filas (7 cursos = 3 filas completas + 1 suelto) */
+.rejilla-cursos { grid-template-columns: 1fr 1fr; gap: 18px 36px; }
+
+/* ════════════ PROYECTOS DESPLEGABLES ════════════ */
+.rejilla-proyectos { align-items: start; } /* al expandirse una tarjeta, las vecinas no se estiran */
+.tarjeta-cabecera { cursor: pointer; }
+.tarjeta-basica {
+  padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; position: relative;
+  min-height: 168px;   /* cubre el título más largo (3 líneas) + curso + etiquetas + botón */
+}
+.tarjeta-basica h3 { font-size: 1.08rem; font-weight: 600; padding-right: 38px; line-height: 1.25; }
+.tarjeta-basica .etiquetas { margin-top: auto; }
+.tarjeta-basica .curso { color: var(--ambar); font-size: .8rem; }
+.boton-desplegar {
+  position: absolute; top: 14px; right: 14px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: #24312c; color: var(--menta);
+  border: 1px solid var(--panel-borde); font-size: 1.15rem; line-height: 1;
+  cursor: pointer; transition: transform .25s, color .2s;
+}
+.tarjeta-proyecto.abierta .boton-desplegar { transform: rotate(45deg); color: var(--ambar); }
+.tarjeta-detalle { display: none; padding: 0 18px 18px; border-top: 1px dashed var(--panel-borde); }
+.tarjeta-proyecto.abierta .tarjeta-detalle { display: block; animation: aparecer .3s ease; }
+.tarjeta-detalle p { color: var(--texto-suave); font-size: .92rem; padding-top: 12px; }
+.ficha-datos { display: grid; gap: 4px; margin-top: 4px; font-size: .86rem; color: var(--texto-suave); }
+.ficha-datos b { color: var(--menta); font-weight: 500; }
+@keyframes aparecer { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
+/* ════════════ HERRAMIENTAS (repositorio) ════════════ */
+.bloque-herramientas {
+  background: var(--panel); border: 1px solid var(--panel-borde);
+  border-radius: 12px; padding: 20px 26px; margin-bottom: 22px;
+  transition: border-color .2s, opacity .3s;
+}
+.bloque-herramientas h2 {
+  font-size: 1.05rem; font-weight: 600; color: var(--ambar);
+  display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+}
+.bloque-herramientas h2 svg {
+  width: 22px; height: 22px; flex: none;
+  stroke: var(--menta); fill: none;
+  stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+}
+.lista-herramientas { list-style: none; }
+.lista-herramientas li {
+  display: grid; grid-template-columns: 200px 1fr auto; gap: 16px;
+  align-items: baseline; padding: 10px 0;
+  border-bottom: 1px dashed var(--panel-borde);
+}
+.lista-herramientas li:last-child { border-bottom: none; }
+.lista-herramientas .uso { color: var(--texto-suave); font-size: .92rem; }
+/* Nombre sin enlace (herramientas sin web oficial) */
+.lista-herramientas .nombre { color: var(--texto); font-weight: 500; }
+
+/* Par de etiquetas de cada herramienta */
+.etiquetas-herramienta { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+
+/* Etiquetas de licencia: chip cuadrado y mono, para distinguirlas
+   a simple vista de las de dificultad (que son pastilla redonda) */
+.chip.licencia {
+  font-family: 'IBM Plex Mono', monospace; font-size: .72rem;
+  border-radius: 5px; padding: 3px 10px; white-space: nowrap;
+}
+.chip.lic-libre    { background: #2a2338; color: #c9b4ee;      border-color: #413456;}
+.chip.lic-gratis   { background: #2a2338; color: #c9b4ee;      border-color: #413456; }
+.chip.lic-freemium { background: #2a2338; color: #c9b4ee;      border-color: #413456; }
+/* Las etiquetas de dificultad comparten tipografía con las de
+   licencia (mono), pero conservan la forma de pastilla redonda
+   para que las dos familias sigan distinguiéndose de un vistazo */
+.chip.dificultad-facil,
+.chip.dificultad-intermedio,
+.chip.dificultad-avanzado {
+  font-family: 'IBM Plex Mono', monospace; font-size: .72rem;
+  padding: 3px 10px; white-space: nowrap;
+}
+
+/* Leyenda de etiquetas */
+.leyenda-herramientas {
+  background: var(--panel); border: 1px solid var(--panel-borde);
+  border-radius: 12px; padding: 14px 24px; margin-bottom: 24px;
+  font-size: .9rem; color: var(--texto-suave);
+}
+.leyenda-herramientas > summary {
+  cursor: pointer; list-style: none;
+  color: var(--menta); font-family: 'IBM Plex Mono', monospace; font-size: .82rem;
+  display: flex; align-items: center; gap: 10px; padding: 4px 0;
+}
+.leyenda-herramientas > summary::-webkit-details-marker { display: none; }
+.leyenda-herramientas > summary::before { content: "// "; }
+.leyenda-herramientas > summary::after {
+  content: "+"; margin-left: auto; display: inline-block;
+  font-size: 1.15rem; line-height: 1; transition: transform .25s, color .2s;
+}
+.leyenda-herramientas[open] > summary::after { transform: rotate(45deg); color: var(--ambar); }
+.leyenda-cuerpo { display: grid; gap: 10px; padding: 14px 0 6px; }
+.leyenda-herramientas .titulo-leyenda {
+  color: var(--ambar); font-size: .72rem; letter-spacing: .06em;
+  margin-bottom: 2px;
+}
+.leyenda-herramientas .fila { display: flex; gap: 14px; align-items: baseline; }
+.leyenda-herramientas .fila .chip { flex: none; min-width: 96px; text-align: center; }
+.leyenda-herramientas .titulo-leyenda.separador {
+  border-top: 1px dashed var(--panel-borde); padding-top: 16px; margin-top: 6px;
+}
+.leyenda-herramientas b { color: var(--texto); font-weight: 500; }
+.leyenda-herramientas .nota-dificultad {
+  border-top: 1px dashed var(--panel-borde); padding-top: 10px; font-size: .86rem;
+}
+.leyenda-herramientas .nota-dificultad + .nota-dificultad { border-top: none; padding-top: 0; }
+
+/* Resaltar la categoría de la herramienta bajo el cursor */
+main.resaltando .bloque-herramientas { opacity: .35; }
+main.resaltando .bloque-herramientas.resaltado { opacity: 1; border-color: var(--menta); }
+
+/* ════════════ PANTALLA DE CARGA ════════════ */
+.pantalla-carga {
+  position: fixed; inset: 0; z-index: 100;
+  background: var(--fondo);
+  display: flex; flex-direction: column; gap: 14px;
+  align-items: center; justify-content: center;
+  transition: opacity .4s ease;
+}
+.pantalla-carga.oculta { opacity: 0; pointer-events: none; }
+.pantalla-carga .led-carga {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--ambar); box-shadow: 0 0 10px var(--ambar);
+  animation: parpadeo-carga 1s ease-in-out infinite;
+}
+.pantalla-carga p { color: var(--texto-suave); font-size: .85rem; letter-spacing: .06em; }
+@keyframes parpadeo-carga { 50% { opacity: .25; } }
+
+/* ════════════ DINAMISMO 2.0 ════════════ */
+
+/* Halo que sigue al cursor (las variables --mx/--my las pone js/global.js).
+   Sobrescribe el fondo del body: retícula + brillo menta muy tenue. */
+body {
+  background-image:
+    radial-gradient(420px circle at var(--mx, 50%) var(--my, 30%),
+      rgba(93, 202, 165, .05), transparent 70%),
+    radial-gradient(circle, #22262b 1px, transparent 1px);
+  background-size: 100% 100%, 26px 26px;
+  /* el halo (1ª capa) va fijo al viewport para que --mx/--my siempre
+     coincidan con la posición real del puntero, aunque haya scroll;
+     la retícula de puntos (2ª capa) sigue desplazándose con la página */
+  background-attachment: fixed, scroll; 
+}
+/* En pantallas táctiles no hay puntero: fuera halo y fuera
+   background fijo (Safari iOS lo pinta mal). Queda solo la retícula. */
+@media (hover: none), (pointer: coarse) {
+  body {
+    background-image: radial-gradient(circle, #22262b 1px, transparent 1px);
+    background-size: 26px 26px;
+    background-attachment: scroll;
+  }
+}
+
+/* Interruptor manual de movimiento (lo crea js/global.js) */
+.interruptor-movimiento {
+  position: fixed; right: 18px; bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 60;
+  display: flex; align-items: center; gap: 9px;
+  background: var(--panel); border: 1px solid var(--panel-borde);
+  border-radius: 999px; padding: 8px 14px;
+  font-family: 'IBM Plex Mono', monospace; font-size: .75rem;
+  color: var(--texto-suave); cursor: pointer;
+}
+.interruptor-movimiento .led-mov {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--menta); box-shadow: 0 0 6px var(--menta);
+}
+body.sin-movimiento .interruptor-movimiento .led-mov { background: var(--texto-suave); box-shadow: none; }
+
+/* Apagado manual: equivalente a prefers-reduced-motion */
+body.sin-movimiento *, body.sin-movimiento *::before, body.sin-movimiento *::after {
+  transition: none !important; animation: none !important;
+}
+body.sin-movimiento .electron, body.sin-movimiento .anillo-pulso { display: none; }
+body.sin-movimiento .revelar { opacity: 1; transform: none; }
+body.sin-movimiento .cursor-tecleo, body.sin-movimiento .cursor-terminal { display: none; }
+
+/* Boop (squash & stretch) en los componentes del circuito */
+.circuito-escritorio .hito .pad,
+.circuito-escritorio .hito .simbolo,
+.circuito-escritorio .hito .relleno {
+  transform-box: fill-box; transform-origin: center;
+  transition: transform .45s cubic-bezier(.28, 2.2, .35, .8), stroke .3s, fill .3s;
+}
+.circuito-escritorio .hito:hover .pad,
+.circuito-escritorio .hito:hover .simbolo,
+.circuito-escritorio .hito:hover .relleno,
+.circuito-escritorio .hito:focus-visible .pad,
+.circuito-escritorio .hito:focus-visible .simbolo,
+.circuito-escritorio .hito:focus-visible .relleno { transform: scale(1.18, .94); }
+
+/* Tecleado de las cabeceras (todas las páginas) */
+.cursor-tecleo {
+  display: inline-block; width: 9px; height: 1.05em;
+  background: var(--menta); vertical-align: text-bottom;
+  animation: parpadeo-cursor 1s steps(2) infinite;
+}
+@keyframes parpadeo-cursor { 50% { opacity: 0; } }
+
+/* ════════════ RESPONSIVE / MÓVIL ════════════ */
+@media (max-width: 760px) {
+  body { font-size: 16px; }
+  .circuito-escritorio, .instruccion-circuito, .leyenda-circuito, .tarjeta-hito { display: none; }
+  .rejilla-cursos { grid-template-columns: 1fr; }
+  .lista-herramientas li { grid-template-columns: 1fr; gap: 2px; }
+  .etiquetas-herramienta { justify-content: flex-start; margin-top: 4px; }
+  .leyenda-herramientas .fila { flex-direction: column; gap: 6px; }
+  .circuito-movil { display: block; }
+  .formacion-columnas { grid-template-columns: 1fr; }
+  section { padding: 44px 0; }
+  .heroe { padding: 48px 0 40px; }
+  .rejilla-proyectos { grid-template-columns: 1fr; }
+  .parrafo-condensador { gap: 14px; }
+  .filtros-repositorio .filtro { width: 100%; }
+  .filtros-repositorio select { width: 100%; min-width: 0; }
+  .boton-limpiar { width: 100%; }
+  .nav-enlaces a { padding: 12px 4px; }
+
+  /* El menú se desliza: degradado que insinúa que hay más enlaces */
+  nav { position: relative; }
+  nav::after {
+    content: ""; position: absolute; top: 0; right: 0; bottom: 0;
+    width: 44px; pointer-events: none;
+    background: linear-gradient(90deg, transparent, var(--fondo));
+  }
+  /* El logo cede sitio a los enlaces en pantallas estrechas */
+  .logo span:last-child { display: none; }  /* oculta el _LAB, queda ALEJANDRO_REY */
+
+  /* Títulos en móvil: pista decorativa más corta, sin sangría del subtítulo */
+  .titulo-seccion { font-size: 1.4rem; }
+  .titulo-seccion::before { width: 18px; box-shadow: 26px 0 0 var(--ambar-fuerte); margin-right: 50px; }
+  .subtitulo-seccion { padding-left: 0; }
+
+  .terminal { font-size: .78rem; }
+  .terminal-cuerpo { padding: 18px 16px; overflow-x: auto; }
+  .boton { width: 100%; text-align: center; }
+  .botones-heroe .boton { width: auto; flex: 1; }
+}
+
+/* Accesibilidad: respetar la preferencia de menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  .cursor-tecleo, .cursor-terminal { display: none; }
+  .electron { display: none; }
+}

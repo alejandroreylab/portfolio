@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <noscript><style>.pantalla-carga{display:none}</style></noscript>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proyectos educativos · Alejandro Rey</title>
+<meta name="description" content="Proyectos educativos de Alejandro Rey como docente, formador y gestor: STEAM, robótica e IA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <!-- Pantalla de carga: se oculta sola desde js/global.js -->
+<div class="pantalla-carga" id="pantalla-carga" aria-hidden="true">
+  <span class="led-carga"></span>
+  <p class="mono">// cargando el laboratorio…</p>
+</div>
+
+<nav aria-label="Navegación principal">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">ALEJANDRO<span>_</span>REY<span>_LAB</span></a>
+    <ul class="nav-enlaces">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="sobre-mi.html">Sobre mí</a></li>
+      <li><a href="proyectos.html" class="actual">Proyectos</a></li>
+      <li><a href="formacion.html">Formación</a></li>
+      <li><a href="competencias.html">Competencias</a></li>
+      <li><a href="herramientas.html">Herramientas</a></li>
+      <li><a href="repositorios.html">Repositorios</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+<div class="cabecera-pagina contenedor">
+  <p class="eyebrow mono">// el corazón del portfolio: pulsa cada ficha para desplegarla</p>
+  <h1>Proyectos educativos</h1>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     CÓMO AÑADIR UN PROYECTO NUEVO (ficha desplegable):
+     1. Copia un bloque <article class="tarjeta-proyecto"> completo.
+     2. En data-roles pon los roles separados por espacio:
+        docente, formador y/o gestor (puede tener varios).
+     3. Vista básica (siempre visible): foto, nombre, curso y
+        etiquetas (rol + edad/destinatarios + temática).
+     4. Vista desplegada (.tarjeta-detalle): descripción y ficha
+        con marco y destinatarios. Ahí puedes ampliar con
+        objetivos, resultados y aprendizajes cuando los tengas.
+     5. Para la foto, sustituye el contenido de .tarjeta-img por:
+        <img src="img/nombre-foto.jpg" alt="Describe aquí lo que se ve en la foto" loading="lazy" decoding="async" width="800" height="600">
+        (nunca fotos con alumnado reconocible sin permisos firmados)
+     6. ORDEN DE LAS TARJETAS: se mantienen agrupadas por rol
+        principal —docente primero, formador después y gestor al
+        final— aunque los filtros (bombillas) permitan combinarlas.
+        Al añadir una tarjeta nueva, colócala dentro del bloque de
+        su rol para conservar ese orden.
+     ════════════════════════════════════════════════════ -->
+<section style="padding-top: 24px;">
+  <div class="contenedor">
+<!-- Mini-circuito de roles: cada bombilla (círculo con X) enciende
+         o apaga su filtro. Pueden encenderse varias a la vez; con las
+         tres encendidas se ven todos los proyectos. -->
+    <div class="mini-circuito">
+      <svg viewBox="0 0 560 100" role="group" aria-label="Filtro de proyectos por rol: bombillas de docente, formador y gestor">
+        <path class="mc-pista" d="M20,45 H540"/>
+        <path class="mc-pista luz" id="mc-luz" d="M20,45 H540" stroke-dasharray="520" stroke-dashoffset="520"/>
+        <circle cx="20" cy="45" r="4" fill="var(--menta)"/>
+        <circle cx="540" cy="45" r="4" fill="var(--menta)"/>
+
+        <g class="mc-bombilla" data-filtro="docente" role="button" tabindex="0" aria-pressed="true" aria-label="Mostrar u ocultar proyectos como docente">
+          <circle class="vidrio" cx="135" cy="45" r="14"/>
+          <line class="filamento" x1="125.1" y1="35.1" x2="144.9" y2="54.9"/>
+          <line class="filamento" x1="144.9" y1="35.1" x2="125.1" y2="54.9"/>
+          <text x="135" y="83">docente</text>
+        </g>
+        <g class="mc-bombilla" data-filtro="formador" role="button" tabindex="0" aria-pressed="true" aria-label="Mostrar u ocultar proyectos como formador">
+          <circle class="vidrio" cx="280" cy="45" r="14"/>
+          <line class="filamento" x1="270.1" y1="35.1" x2="289.9" y2="54.9"/>
+          <line class="filamento" x1="289.9" y1="35.1" x2="270.1" y2="54.9"/>
+          <text x="280" y="83">formador</text>
+        </g>
+        <g class="mc-bombilla" data-filtro="gestor" role="button" tabindex="0" aria-pressed="true" aria-label="Mostrar u ocultar proyectos como gestor">
+          <circle class="vidrio" cx="425" cy="45" r="14"/>
+          <line class="filamento" x1="415.1" y1="35.1" x2="434.9" y2="54.9"/>
+          <line class="filamento" x1="434.9" y1="35.1" x2="415.1" y2="54.9"/>
+          <text x="425" y="83">gestor</text>
+        </g>
+      </svg>
+    </div>
+    <div class="rejilla-proyectos">
+
+      <!-- ══════════════ ROL: DOCENTE ══════════════ -->
+
+      <article class="tarjeta-proyecto" data-roles="docente">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-img mono">
+          <img src="img/experienciasteam.jpg" alt="Actividad manipulativa del programa Experiencia STEAM en La Estación CyT" loading="lazy" decoding="async" width="800" height="600"> </div>
+          <div class="tarjeta-basica">
+            <h3>Experiencia STEAM</h3>
+            <span class="curso mono"> Curso escolar 2021 - actualidad</span>
+            <div class="etiquetas">
+              <span class="etiqueta rol rol-docente">Docente</span>
+              <span class="etiqueta">EP y ESO</span>
+               <span class="etiqueta">STEAM</span>
+            </div>
+            <button class="boton-desplegar" aria-expanded="false" aria-label="Desplegar detalles de Experiencia STEAM">+</button>
+          </div>
+        </div>
+        <div class="tarjeta-detalle">
+          <p>Programa diario en La Estación CyT: cada centro educativo acude una mañana a la semana y, a través del storytelling, participa en dos actividades manipulativas y experimentales, una científica y otra tecnológica.</p>
+          <div class="ficha-datos">
+            <span><b>Duración:</b> Noviembre - Mayo</span>
+            <span><b>Contexto:</b> La Estación CyT</span>
+            <span><b>Destinatarios:</b> Alumnado EP y ESO</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="tarjeta-proyecto" data-roles="docente">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-img mono">
+          <img src="img/ubuproyecta.jpg" alt="Equipo de alumnado desarrollando su proyecto en UBUProyecta" loading="lazy" decoding="async" width="800" height="600"> </div>
+          <div class="tarjeta-basica">
+            <h3>UBUProyecta</h3>
+            <span class="curso mono">Curso escolar 2021 – actualidad</span>
+            <div class="etiquetas">
+              <span class="etiqueta rol rol-docente">Docente</span>
+              <span class="etiqueta"> ESO y BACH</span>
+              <span class="etiqueta">ABP</span>
+            </div>
+            <button class="boton-desplegar" aria-expanded="false" aria-label="Desplegar detalles de UBUProyecta">+</button>
+          </div>
+        </div>
+        <div class="tarjeta-detalle">
+          <p>Programa semanal (una hora y media) organizado en niveles progresivos: a partir de una temática anual, el alumnado identifica necesidades, diseña, planifica y ejecuta su propio proyecto relacionado con cualquiera de las disciplinas STEAM. El alumnado va ganando autonomía y capacidades de gestión de proyectos a lo largo de los niveles.</p>
+          <div class="ficha-datos">
+            <span><b>Duración:</b> Octubre - Mayo</span>
+            <span><b>Contexto:</b> La Estación CyT</span>
+            <span><b>Destinatarios:</b> Alumnado ESO y BACH</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="tarjeta-proyecto" data-roles="docente">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-img mono">
+          <img src="img/verano.jpg" alt="Reto científico de los campamentos Verano Científico" loading="lazy" decoding="async" width="800" height="600"> </div>
+          <div class="tarjeta-basica">
+            <h3>Verano Científico</h3>
+            <span class="curso mono"> Verano 2021 – actualidad</span>
+            <div class="etiquetas">
+              <span class="etiqueta rol rol-docente">Docente</span>
+              <span class="etiqueta"> EI y EP</span>
+              <span class="etiqueta">STEAM</span>
+            </div>
+            <button class="boton-desplegar" aria-expanded="false" aria-label="Desplegar detalles de Verano Científico">+</button>
+          </div>
+        </div>
+        <div class="tarjeta-detalle">
+          <p>Campamentos urbanos de una semana de duración (por las mañanas): a través del storytelling y la gamificación, el alumnado resuelve retos día a día hasta lograr un objetivo final, aprendiendo ciencia y tecnología en el proceso.</p>
+          <div class="ficha-datos">
+            <span><b>Duración:</b> Julio - Agosto</span>
+            <span><b>Contexto:</b> La Estación CyT</span>
+            <span><b>Destinatarios:</b> Alumnado EI y EP</span>
+            <span><b>Más información: </b><a href="https://laestacioncyt.es/verano-cientifico-2025/" target="_blank" rel="noopener">Clic aquí</a></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="tarjeta-proyecto" data-roles="docente">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-img mono">
+          <img src="img/talleres.jpg" alt="Taller puntual de divulgación científico-tecnológica" loading="lazy" decoding="async" width="800" height="600"> </div>
+          <div class="tarjeta-basica">
+            <h3>Talleres puntuales</h3>
+            <span class="curso mono"> Curso 2021 – actualidad</span>
+            <div class="etiquetas">
+              <span class="etiqueta rol rol-docente">Docente</span>
+              <span class="etiqueta"> Todos los públicos</span>
+            </div>
+            <button class="boton-desplegar" aria-expanded="false" aria-label="Desplegar detalles de Talleres científico-tecnológicos">+</button>
+          </div>
+        </div>
+        <div class="tarjeta-detalle">
+          <p>Talleres puntuales de divulgación para todos los públicos: robótica, química, videojuegos, electrónica, etc. adaptados a cada edad y ocasión.</p>
+          <div class="ficha-datos">
+            <span><b>Duración:</b> Noviembre - Mayo</span>
+            <span><b>Contexto:</b> La Estación CyT</span>
+            <span><b>Destinatarios:</b> Todos los públicos</span>
+             <span><b>Más información: </b><a href="https://laestacioncyt.es/actividades/" target="_blank" rel="noopener">Clic aquí</a></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ══════════════ ROL: FORMADOR ══════════════ -->
+
+      <article class="tarjeta-proyecto" data-roles="formador">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-img mono">
+          <img src="img/proyectossteam.jpg" alt="Docentes diseñando su proyecto STEAM en equipo" loading="lazy" decoding="async" width="800" height="600"> </div>
+          <div class="tarjeta-basica">
+            <h3>Curso "Diseño de proyectos STEAM"</h3>
+            <span class="curso mono"> Curso 2022 – actualidad</span>
+            <div class="etiquetas">
+              <span class="etiqueta rol">Formador</span>
+              <span class="etiqueta">Profesorado</span>
+              <span class="etiqueta">STEAM</span>
+            </div>
+            <button class="boton-desplegar" aria-expanded="false" aria-label="Desplegar detalles de Enfoque de proyectos STEAM">+</button>
+          </div>
+        </div>
+        <div class="tarjeta-detalle">
+          <p>Formación continuada para el profesorado de la Fundación Jesuitinas: equipos interdisciplinares de docentes diseñan su propio proyecto STEAM con la tutorización del equipo de La Estación, hasta convertirlo en un proyecto real de aula.</p>
+          <div class="ficha-datos">
+            <span><b>Duración:</b> Febrero - Mayo</span>
+            <span><b>Contexto:</b> La Estación CyT</span>
+            <span><b>Destinatarios:</b> Profesorado</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="tarjeta-proyecto" data-roles="formador">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-img mono">
+            <img src="img/fll.jpg" alt="Robot de LEGO sobre el tapete de la First Lego League" loading="lazy" decoding="async" width="800" height="600"> </div>
+          <div class="tarjeta-basica">
+            <h3>First Lego League Burgos</h3>
+            <span class="curso mono">Curso 2022 – actualidad</span>
+            <div class="etiquetas">
+              <span class="etiqueta rol">Formador</span>
+              <span class="etiqueta">Profesorado</span>
+              <span class="etiqueta">Robótica</span>
+            </div>
+            <button class="boton-desplegar" aria-expanded="false" aria-label="Desplegar detalles de First Lego League Burgos">+</button>
+          </div>
+        </div>
+        <div class="tarjeta-detalle">
+          <p>Formación online, en sesiones puntuales, para los entrenadores de los equipos de Castilla y León: manejo del hardware y software de robótica que se usa en la competición.</p>
+          <div class="ficha-datos">
+            <span><b>Duración:</b> Octubre - Enero</span>
+            <span><b>Contexto:</b> La Estación CyT</span>
+            <span><b>Destinatarios:</b> Profesorado</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="tarjeta-proyecto" data-roles="formador">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-img mono">
+            <img src="img/compdigedu.jpg" alt="Cartel de la jornada CompDigEdu de competencia digital docente" loading="lazy" decoding="async" width="800" height="600"> </div>
+          <div class="tarjeta-basica">
+            <h3>Jornada "CompDigEdu"</h3>
+            <span class="curso mono">Febrero 2023</span>
+            <div class="etiquetas">
+              <span class="etiqueta rol">Formador</span>
+              <span class="etiqueta">Profesorado</span>
+            </div>
+            <button class="boton-desplegar" aria-expanded="false" aria-label="Desplegar detalles de COMPDIGEDU">+</button>
+          </div>
+        </div>
+        <div class="tarjeta-detalle">
+          <p>Jornada en colaboración con el CFIE de Palencia en la que se presentaron al profesorado distintas herramientas digitales y tecnológicas para trabajar con el alumnado en el aula.</p>
+          <div class="ficha-datos">
+            <span><b>Duración:</b> 2 horas</span>
+            <span><b>Contexto:</b> La Estación CyT</span>
+            <span><b>Destinatarios:</b> Profesorado</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="tarjeta-proyecto" data-roles="formador">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-img mono">
+          <img src="img/troyiano.jpg" alt="Cartel del curso Proyecto Cerebrum 512 sobre IA y machine learning" loading="lazy" decoding="async" width="800" height="600"> </div>
+          <div class="tarjeta-basica">
+            <h3>Curso CFIE Burgos "Proyecto Cerebrum 512"</h3>
+            <span class="curso mono">Marzo 2025</span>
+            <div class="etiquetas">
+              <span class="etiqueta rol">Formador</span>
+              <span class="etiqueta"> Profesorado</span>
+              <span class="etiqueta">IA</span>
+            </div>
+            <button class="boton-desplegar" aria-expanded="false" aria-label="Desplegar detalles IA y ML">+</button>
+          </div>
+        </div>
+        <div class="tarjeta-detalle">
+          <p>Curso en el CFIE de Burgos sobre IA y Machine Learning: el profesorado combina Scratch con herramientas de Machine Learning a través de un relato de ficción sobre una IA del centro, en 8 h presenciales más 2 h de aplicación en el aula.</p>
+          <div class="ficha-datos">
+            <span><b>Duración:</b> 8 horas</span>
+            <span><b>Contexto:</b> Independiente</span>
+            <span><b>Destinatarios:</b> Profesorado</span>
+            <span><b>Más información: </b><a href="https://laestacioncyt.es/cursos/proyecto-cerebrum-512-inteligencia-artificial-y-machine-learning-en-el-aula/?srsltid=AfmBOoqTecTjXSsAE1lSLdFuugw4ogRN8_O8nOz0roMJG1v1O7IIz7Rl" target="_blank" rel="noopener">Clic aquí</a></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="tarjeta-proyecto" data-roles="formador">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-img mono">
+          <img src="img/audiovisual.jpg" alt="Cartel del curso de generación de recursos audiovisuales con IA" loading="lazy" decoding="async" width="800" height="600"> </div>
+          <div class="tarjeta-basica">
+            <h3> Curso CFIE Burgos "Generación de recursos audiovisuales con IA"</h3>
+            <span class="curso mono">Marzo 2026</span>
+            <div class="etiquetas">
+              <span class="etiqueta rol">Formador</span>
+              <span class="etiqueta">Profesorado</span>
+              <span class="etiqueta">IA</span>
+            </div>
+            <button class="boton-desplegar" aria-expanded="false" aria-label="Desplegar detalles de Generación de recursos audiovisuales con IA">+</button>
+          </div>
+        </div>
+        <div class="tarjeta-detalle">
+          <p>Curso en el CFIE de Burgos sobre generación de recursos audiovisuales con IA en torno a una situación de aprendizaje: en 8 h presenciales más 2 h de aplicación en el aula.</p>
+          <div class="ficha-datos">
+            <span><b>Duración:</b> 8 horas</span>
+            <span><b>Contexto:</b> Independiente</span>
+            <span><b>Destinatarios:</b> Profesorado</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="tarjeta-proyecto" data-roles="formador">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-img mono">
+          <img src="img/crieburgos.jpg" alt="Eco-invento con placa micro:bit del curso del CRIE de Burgos" loading="lazy" decoding="async" width="800" height="600"> </div>
+          <div class="tarjeta-basica">
+            <h3>Curso CRIE Burgos "Eco-inventos y programación por bloques"</h3>
+            <span class="curso mono">Curso 2022 – 2023</span>
+            <div class="etiquetas">
+              <span class="etiqueta rol">Formador</span>
+              <span class="etiqueta">Profesorado</span>
+              <span class="etiqueta">Robótica</span>
+            </div>
+            <button class="boton-desplegar" aria-expanded="false" aria-label="Desplegar detalles de Formación CRIEB Eco-inventos y programación por bloques">+</button>
+          </div>
+        </div>
+        <div class="tarjeta-detalle">
+          <p>Formación para docentes del CRIE de Burgos centrada en el funcionamiento de la placa micro:bit y en la programación por bloques, a través de "eco-inventos".</p>
+          <div class="ficha-datos">
+            <span><b>Duración:</b> 4 horas</span>
+            <span><b>Contexto:</b> La Estación CyT</span>
+            <span><b>Destinatarios:</b> Profesorado</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="tarjeta-proyecto" data-roles="formador">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-img mono">
+          <img src="img/cfiesoria.jpg" alt="Cartel del curso de proyectos STEAM del CFIE de Soria" loading="lazy" decoding="async" width="800" height="600"> </div>
+          <div class="tarjeta-basica">
+            <h3>Curso CFIE Soria "Proyectos STEAM"</h3>
+            <span class="curso mono">Curso 2021 – 2022</span>
+            <div class="etiquetas">
+              <span class="etiqueta rol">Formador</span>
+              <span class="etiqueta">Profesorado</span>
+              <span class="etiqueta">STEAM</span>
+            </div>
+            <button class="boton-desplegar" aria-expanded="false" aria-label="Desplegar detalles de Curso CFIE Soria Proyectos STEAM">+</button>
+          </div>
+        </div>
+        <div class="tarjeta-detalle">
+          <p>Curso en el CFIE de Soria sobre el enfoque STEAM: fundamentos y aplicación práctica en el aula.</p>
+          <div class="ficha-datos">
+            <span><b>Duración:</b> 2 horas</span>
+            <span><b>Contexto:</b> La Estación CyT</span>
+            <span><b>Destinatarios:</b> Profesorado</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="tarjeta-proyecto" data-roles="formador">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-img mono">
+            <img src="img/machinelearning.jpg" alt="Charla PIE 4.0 sobre machine learning en el aula" loading="lazy" decoding="async" width="800" height="600"> </div>
+          <div class="tarjeta-basica">
+            <h3>Charla PIE 4.0 "Machine Learning en el Aula"</h3>
+            <span class="curso mono">Abril 2025</span>
+            <div class="etiquetas">
+              <span class="etiqueta rol">Formador</span>
+              <span class="etiqueta">Profesorado</span>
+              <span class="etiqueta">IA</span>
+            </div>
+            <button class="boton-desplegar" aria-expanded="false" aria-label="Desplegar detalles de Charla PIE 4.0 Machine Learning en el Aula">+</button>
+          </div>
+        </div>
+        <div class="tarjeta-detalle">
+          <p>Ponencia de dos horas dirigida a docentes de todas las etapas educativas sobre cómo utilizar el Machine Learning en el aula.</p>
+          <div class="ficha-datos">
+            <span><b>Duración:</b> 2 horas</span>
+            <span><b>Contexto:</b> Independiente</span>
+            <span><b>Destinatarios:</b> Profesorado</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="tarjeta-proyecto" data-roles="formador">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-img mono">
+          <img src="img/tanger.jpg" alt="Sesión formativa del proyecto La Estación Abierta en Tánger" loading="lazy" decoding="async" width="800" height="600"> </div>
+          <div class="tarjeta-basica">
+            <h3>La Estación Abierta en Tánger</h3>
+            <span class="curso mono">Curso 2022 – 2023</span>
+            <div class="etiquetas">
+              <span class="etiqueta rol">Formador</span>
+              <span class="etiqueta">Profesorado</span>
+              <span class="etiqueta">Cooperación</span>
+            </div>
+            <button class="boton-desplegar" aria-expanded="false" aria-label="Desplegar detalles de Proyecto Tánger formación">+</button>
+          </div>
+        </div>
+        <div class="tarjeta-detalle">
+          <p>Proyecto formativo dirigido a docentes de distintas asociaciones de Tánger, orientado a la introducción de herramientas tecnológicas en sus acciones con alumnado.</p>
+          <div class="ficha-datos">
+            <span><b>Contexto:</b> La Estación CyT</span>
+            <span><b>Destinatarios:</b> Profesorado</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="tarjeta-proyecto" data-roles="formador">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-img mono">
+            <img src="img/aspayn.jpg" alt="Curso de introducción a la fabricación digital en ASPAYN Burgos" loading="lazy" decoding="async" width="800" height="600"> </div>
+          <div class="tarjeta-basica">
+            <h3>Curso ASPAYN Burgos "Introducción a la fabricación digital"</h3>
+            <span class="curso mono">Agosto 2021</span>
+            <div class="etiquetas">
+              <span class="etiqueta rol">Formador</span>
+              <span class="etiqueta">Adultos</span>
+              
+            </div>
+            <button class="boton-desplegar" aria-expanded="false" aria-label="Desplegar detalles de Introducción a la fabricación digital ASPAYN">+</button>
+          </div>
+        </div>
+        <div class="tarjeta-detalle">
+          <p>Curso de orientación laboral destinado a usuarios de ASPAYN Burgos sobre introducción a la fabricación digital.</p>
+          <div class="ficha-datos">
+            <span><b>Duración:</b> 8 horas</span>
+            <span><b>Contexto:</b> La Estación CyT</span>
+            <span><b>Destinatarios:</b> Adultos</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ══════════════ ROL: GESTOR ══════════════ -->
+
+      <article class="tarjeta-proyecto" data-roles="gestor">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-img mono">
+          <img src="img/juegatron.jpg" alt="Mesas de juego de las jornadas JUEGATRÓN" loading="lazy" decoding="async" width="800" height="600"> </div>
+          <div class="tarjeta-basica">
+            <h3>JUEGATRÓN</h3>
+            <span class="curso mono"> Curso 2022 – 2025</span>
+            <div class="etiquetas">
+              <span class="etiqueta rol rol-gestor">Gestor</span>
+              <span class="etiqueta"> Todos los públicos</span>
+              </div>
+            <button class="boton-desplegar" aria-expanded="false" aria-label="Desplegar detalles de JUEGATRÓN">+</button>
+          </div>
+        </div>
+        <div class="tarjeta-detalle">
+          <p>Jornadas gratuitas de juegos de mesa de temática científico-tecnológica junto con ACNIL.</p>
+          <div class="ficha-datos">
+            <span><b>Duración:</b> 2 días</span>
+            <span><b>Contexto:</b> La Estación CyT</span>
+            <span><b>Destinatarios:</b> Todos los públicos</span>
+            <span><b>Más información: </b><a href="https://laestacioncyt.es/juegatron-cuarta-edicion/" target="_blank" rel="noopener">Clic aquí</a></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="tarjeta-proyecto" data-roles="gestor">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-img mono">
+            <img src="img/run-eu.jpg" alt="Estudiantes del programa RUN-EU SAP durante la semana presencial en la UBU" loading="lazy" decoding="async" width="800" height="600"> </div>
+          <div class="tarjeta-basica">
+            <h3>Curso RUN-EU SAP "Designing STEAM Projects for Pre-University Students"</h3>
+            <span class="curso mono">Marzo – Abril 2025</span>
+            <div class="etiquetas">
+              <span class="etiqueta rol rol-gestor">Gestor</span>
+              <span class="etiqueta">Universitarios</span>
+              <span class="etiqueta">STEAM</span>
+            </div>
+            <button class="boton-desplegar" aria-expanded="false" aria-label="Desplegar detalles de RUN-EU SAP Designing STEAM Projects">+</button>
+          </div>
+        </div>
+        <div class="tarjeta-detalle">
+          <p>Coordinación, como Course Leader, del Short Advanced Programme de la alianza RUN-EU sobre diseño de proyectos STEAM para estudiantes preuniversitarios (6-17 años), en colaboración con Howest University of Applied Sciences, con semana presencial en la UBU.</p>
+          <div class="ficha-datos">
+            <span><b>Contexto:</b> La Estación CyT</span>
+            <span><b>Destinatarios:</b> Universitarios</span>
+            <span><b>Más información: </b><a href="https://www.youtube.com/watch?v=Lhksnt0fT4g" target="_blank" rel="noopener">Clic aquí</a></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="tarjeta-proyecto" data-roles="gestor">
+        <div class="tarjeta-cabecera">
+          <div class="tarjeta-img mono">
+            <img src="img/smartcity.jpg" alt="Maqueta de ciudad inteligente del proyecto RUN-EU FILS" loading="lazy" decoding="async" width="800" height="600"> </div>
+          <div class="tarjeta-basica">
+            <h3>Curso RUN-EU FILS "Future Innovator Labs"</h3>
+            <span class="curso mono">Curso 2025 – actualidad</span>
+            <div class="etiquetas">
+              <span class="etiqueta rol rol-gestor">Gestor</span>
+              <span class="etiqueta">ESO, BACH y FP</span>
+              <span class="etiqueta">STEAM</span>
+            
+            </div>
+            <button class="boton-desplegar" aria-expanded="false" aria-label="Desplegar detalles de RUN-EU FILS Future Innovator Labs">+</button>
+          </div>
+        </div>
+        <div class="tarjeta-detalle">
+          <p>Proyecto en colaboración con centros de formación profesional de Burgos que conecta alumnado de Secundaria y de Formación Profesional en un reto STEAM compartido, con un curso asociado del CFIE de Burgos.</p>
+          <div class="ficha-datos">
+            <span><b>Duración:</b> Curso 2025 - actualidad</span>
+            <span><b>Contexto:</b> La Estación CyT</span>
+            <span><b>Destinatarios:</b> Alumnado ESO y FP y profesorado</span>
+            <span><b>Más información: </b><a href="https://www.ubu.es/noticias/el-programa-ubu-innova-referente-en-la-educacion-steam" target="_blank" rel="noopener">Clic aquí</a></span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="sin-resultados" id="sin-resultados">
+      Todavía no hay proyectos con este rol… pero el circuito sigue creciendo. &#9889;
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="contenedor">
+    <span class="mono">// <a href="como-se-hizo.html" title="Cómo se hizo esta web" class="enlace-making-of">Diseñado y soldado con Fable 5</a> · Alejandro Rey · 2026 </span>
+    <span class="mono footer-nota">// Mejor experiencia abriendo esta web desde el navegador </span>
+  </div>
+</footer>
+
+<script>
+
+/* ── Filtros por rol: bombillas multiselección ──
+   Una tarjeta se muestra si ALGUNO de sus roles está encendido. */
+const bombillas = document.querySelectorAll('.mc-bombilla');
+const luzMC = document.getElementById('mc-luz');
+const tarjetas = document.querySelectorAll('.tarjeta-proyecto');
+const sinResultados = document.getElementById('sin-resultados');
+const roles = new Set(['docente', 'formador', 'gestor']); /* al cargar, todo encendido */
+const posicionesMC = { docente: 135, formador: 280, gestor: 425 };
+
+function pintarEstado() {
+  bombillas.forEach(b => {
+    const on = roles.has(b.dataset.filtro);
+    b.classList.toggle('encendida', on);
+    b.setAttribute('aria-pressed', on);
+  });
+  const xMax = roles.size === 3 ? 540 : Math.max(0, ...[...roles].map(r => posicionesMC[r]));
+  luzMC.style.strokeDashoffset = roles.size ? 540 - xMax : 520;
+  let visibles = 0;
+  tarjetas.forEach(t => {
+    const ver = t.dataset.roles.split(' ').some(r => roles.has(r));
+    t.style.display = ver ? '' : 'none';
+    if (ver) visibles++;
+  });
+  /* Mensaje distinto según la causa: sin bombillas encendidas,
+     invitamos a encender una; con bombillas pero sin proyectos,
+     mantenemos el mensaje original. */
+  sinResultados.textContent = roles.size === 0
+    ? 'Selecciona una categoría para ver los proyectos \u{1F4A1}'
+    : 'Todavía no hay proyectos con este rol… pero el circuito sigue creciendo. \u26A1';
+  sinResultados.style.display = visibles === 0 ? 'block' : 'none';
+}
+
+function alternarRol(rol) {
+  roles.has(rol) ? roles.delete(rol) : roles.add(rol);
+  pintarEstado();
+}
+
+bombillas.forEach(b => {
+  b.addEventListener('click', () => alternarRol(b.dataset.filtro));
+  b.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); alternarRol(b.dataset.filtro); }
+  });
+});
+pintarEstado();
+
+/* ── Fichas desplegables ──
+   Toda la cabecera (foto incluida) despliega la ficha. Cada tarjeta
+   se expande en su sitio; gracias a align-items:start en la rejilla,
+   las tarjetas vecinas no se deforman ni chocan entre sí. */
+tarjetas.forEach(tarjeta => {
+  const cabecera = tarjeta.querySelector('.tarjeta-cabecera');
+  const boton = tarjeta.querySelector('.boton-desplegar');
+  const alternar = () => {
+    const abierta = tarjeta.classList.toggle('abierta');
+    boton.setAttribute('aria-expanded', abierta);
+    boton.textContent = '+'; /* la rotación CSS lo convierte en × */
+  };
+  cabecera.addEventListener('click', alternar);
+  boton.addEventListener('click', ev => {
+    ev.stopPropagation(); /* evita el doble disparo con la cabecera */
+    alternar();
+  });
+});
+</script>
+<script src="js/global.js" defer></script>
+</body>
+</html>

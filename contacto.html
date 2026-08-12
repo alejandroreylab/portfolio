@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <noscript><style>.pantalla-carga{display:none}</style></noscript>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacto · Alejandro Rey</title>
+<meta name="description" content="Contacta con Alejandro Rey para formaciones, proyectos educativos y colaboraciones a título propio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+<!-- Pantalla de carga: js/global.js la retira cuando todo está listo -->
+<div class="pantalla-carga" id="pantalla-carga" aria-hidden="true">
+  <span class="led-carga" aria-hidden="true"></span>
+  <p class="mono">// cargando el laboratorio...</p>
+</div>
+
+<!-- ════════════ NAVEGACIÓN ════════════
+     Está repetida en todas las páginas: si añades un enlace nuevo,
+     recuerda copiarlo también en las demás. -->
+<nav aria-label="Navegación principal">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">ALEJANDRO<span>_</span>REY<span>_LAB</span></a>
+    <ul class="nav-enlaces">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="sobre-mi.html">Sobre mí</a></li>
+      <li><a href="proyectos.html">Proyectos</a></li>
+      <li><a href="formacion.html">Formación</a></li>
+      <li><a href="competencias.html">Competencias</a></li>
+      <li><a href="herramientas.html">Herramientas</a></li>
+      <li><a href="repositorios.html">Repositorios</a></li>
+      <li><a href="contacto.html" class="actual">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+<div class="cabecera-pagina contenedor">
+  <p class="eyebrow mono">// el laboratorio siempre está abierto</p>
+  <h1>Contacto</h1>
+</div>
+
+<!-- Nota de identidad digital: en una web pública conviene NO publicar
+     el teléfono personal. Correo y LinkedIn son suficientes y más seguros. -->
+<section style="padding-top:24px">
+  <div class="contenedor">
+
+    <!-- ════════════════════════════════════════════════════
+         CÓMO EDITAR LAS VÍAS DE CONTACTO:
+         Cada una es un <a class="borne"> con cuatro piezas:
+         número de pin, icono SVG (24×24, solo trazo), título,
+         dato visible (.valor) y para qué sirve (.para-que).
+         Para añadir una nueva, copia un bloque entero y cambia
+         el número de pin. La clase "secundario" apaga la pista
+         izquierda: úsala en las vías que NO son de contacto directo.
+         ════════════════════════════════════════════════════ -->
+    <div class="rejilla-bornes">
+
+      <a class="borne" href="mailto:alejandroreylab@gmail.com">
+        <span class="pin">01</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M3 6.5 L12 13 L21 6.5"/></svg>
+        <h3>Correo</h3>
+        <span class="valor">alejandroreylab@gmail.com</span>
+        <span class="para-que">Formaciones, proyectos y colaboraciones a título propio. La vía directa.</span>
+      </a>
+
+      <a class="borne" href="https://www.linkedin.com/in/alejandroreylopez" target="_blank" rel="noopener">
+        <span class="pin">02</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7.5 10.5 V17 M7.5 7.2 V7.3 M11.5 17 V10.5 M11.5 13.2 a3 3 0 0 1 5 -2.2 V17"/></svg>
+        <h3>LinkedIn</h3>
+        <span class="valor">/in/alejandroreylopez</span>
+        <span class="para-que">Trayectoria al día y contacto profesional.</span>
+      </a>
+
+      <a class="borne secundario" href="https://laestacioncyt.es" target="_blank" rel="noopener">
+        <span class="pin">03</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12 H21 M12 3 a14 14 0 0 1 0 18 a14 14 0 0 1 0 -18"/></svg>
+        <h3>La Estación CyT</h3>
+        <span class="valor">laestacioncyt.es</span>
+        <span class="para-que">El espacio donde trabajo desde 2021. Parte de este portfolio ocurre allí. </span>
+      </a>
+
+    </div>
+
+    <!-- ════════════════════════════════════════════════════
+         TERMINAL: el laboratorio abierto a contribuciones.
+         Cada <div> del .terminal-cuerpo es una línea de salida.
+         .prompt = verde menta · .clave = ámbar · .salto = línea en blanco
+         ════════════════════════════════════════════════════ -->
+    <div class="terminal">
+      <div class="terminal-barra">
+        <i></i><i></i><i></i>
+        <span class="titulo">Contribuye al lab</span>
+      </div>
+      <div class="terminal-cuerpo">
+        <div><span class="prompt">alejandro@laboratorio:~$</span> contribuir --como</div>
+        <div class="salto"></div>
+        <div><span class="clave">herramienta</span> dime la que uses en el aula y no esté en mi repositorio</div>
+        <div><span class="clave">comentario&nbsp;</span> dime qué mejorarías de esta web o de un proyecto</div>
+        <div><span class="clave">proyecto&nbsp;&nbsp;&nbsp;</span> cuéntame uno que quieras montar conmigo</div>
+        <div class="salto"></div>
+        <div>todo llega al mismo sitio → <a href="mailto:alejandroreylab@gmail.com">alejandroreylab@gmail.com</a></div>
+        <div class="salto"></div>
+        <div>gracias por llegar hasta aquí. el circuito sigue creciendo contigo.</div>
+        <div><span class="prompt">alejandro@laboratorio:~$</span> <span class="cursor-terminal" aria-hidden="true"></span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="contenedor">
+    <span class="mono">// <a href="como-se-hizo.html" title="Cómo se hizo esta web" class="enlace-making-of">Diseñado y soldado con Fable 5</a> · Alejandro Rey · 2026 </span>
+    <span class="mono footer-nota">// Mejor experiencia abriendo esta web desde el navegador </span>
+  </div>
+</footer>
+
+<script src="js/global.js" defer></script>
+</body>
+</html>

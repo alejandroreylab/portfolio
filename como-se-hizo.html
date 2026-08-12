@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <noscript><style>.pantalla-carga{display:none}</style></noscript>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cómo se hizo esta web · Alejandro Rey</title>
+<meta name="description" content="Making-of del portfolio de Alejandro Rey: cómo se construyó esta web con vibe coding, HTML, CSS y JavaScript, y cómo puedes crear la tuya.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <!-- Pantalla de carga: se oculta sola desde js/global.js -->
+<div class="pantalla-carga" id="pantalla-carga" aria-hidden="true">
+  <span class="led-carga"></span>
+  <p class="mono">// cargando el laboratorio…</p>
+</div>
+
+<!-- ════════════ NAVEGACIÓN ════════════
+     Esta página NO aparece en el menú a propósito: es un "huevo de
+     pascua" al que solo se llega desde el pie de página. Por eso
+     ningún enlace lleva la clase "actual". -->
+<nav aria-label="Navegación principal">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">ALEJANDRO<span>_</span>REY<span>_LAB</span></a>
+    <ul class="nav-enlaces">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="sobre-mi.html">Sobre mí</a></li>
+      <li><a href="proyectos.html">Proyectos</a></li>
+      <li><a href="formacion.html">Formación</a></li>
+      <li><a href="competencias.html">Competencias</a></li>
+      <li><a href="herramientas.html">Herramientas</a></li>
+      <li><a href="repositorios.html">Repositorios</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+<div class="cabecera-pagina contenedor">
+  <p class="eyebrow mono">// esquema del circuito: cómo se soldó este laboratorio</p>
+  <h1>Cómo se hizo esta web</h1>
+</div>
+
+<section style="padding-top: 24px;">
+  <div class="contenedor">
+    <div class="guia">
+
+      <p>Has encontrado el <strong>esquema del circuito</strong>. Esta página no aparece
+      en el menú: es el <em>making-of</em> del portfolio, escrito para cualquier persona
+      con curiosidad, tenga o no conocimientos de programación. Si alguna vez has pensado
+      «me gustaría tener una web así pero no sé programar», sigue leyendo: esa era
+      exactamente mi situación de partida en la parte web.</p>
+
+      <div class="aviso">
+        <strong>La idea clave:</strong> esta web no la ha escrito un programador
+        tecleando código de memoria. La hemos construido conversando con una
+        inteligencia artificial, revisando cada pieza y decidiendo qué se quedaba
+        y qué no. A esa forma de trabajar se le llama <strong>vibe coding</strong>.
+      </div>
+
+      <!-- ══════════ 1. CÓMO SE CREÓ ══════════ -->
+      <h2>1 · Cómo se creó: vibe coding con Fable 5</h2>
+
+      <p>El <strong>vibe coding</strong> consiste en describir en lenguaje natural
+      («quiero una línea de tiempo que parezca un circuito electrónico, con hitos
+      que se enciendan al pulsarlos») a un modelo de IA —en este caso
+      <strong>Fable 5</strong>, de Anthropic— y que sea él quien escriba el código.
+      Tu trabajo no es programar: es <strong>dirigir, probar y corregir</strong>,
+      como quien revisa un prototipo en el taller.</p>
+
+      <p>El flujo de trabajo real fue este:</p>
+      <ol>
+        <li><strong>Conversar y pedir.</strong> Describía a la IA qué quería conseguir,
+        con el máximo detalle posible: estética, comportamiento, a quién va dirigida la web.</li>
+        <li><strong>Copiar el código a Visual Studio Code.</strong> VS Code es un editor
+        de texto gratuito pensado para código. Cada respuesta de la IA se guardaba allí
+        como un archivo (por ejemplo <span class="mono">index.html</span>).</li>
+        <li><strong>Probar en el navegador con Live Server.</strong> Una extensión de
+        VS Code que abre la web en el navegador y la recarga sola cada vez que guardas.
+        Así ves al instante el efecto de cada cambio, sin publicar nada todavía.</li>
+        <li><strong>Corregir e iterar.</strong> Si algo no me convencía («la tarjeta se
+        superpone al texto», «esto es demasiado recargado»), se lo contaba a la IA y
+        generaba solo el ajuste necesario. Muchas vueltas pequeñas, no una vuelta grande.</li>
+        <li><strong>Publicar en GitHub Pages.</strong> Cuando todo funcionaba en local,
+        los archivos se subieron a un repositorio de GitHub, que ofrece alojamiento
+        gratuito para webs estáticas como esta.</li>
+      </ol>
+
+      <h2>2 · Consejos si quieres hacer lo mismo</h2>
+      <ul>
+        <li><strong>Pide poco cada vez.</strong> «Cámbiame el color de los botones» funciona
+        mucho mejor que «rediséñame la web entera». Los cambios pequeños son fáciles de
+        revisar y fáciles de deshacer.</li>
+        <li><strong>Describe el resultado, no el código.</strong> No necesitas saber cómo se
+        hace una animación; necesitas saber explicar qué quieres que se vea y se sienta.</li>
+        <li><strong>Pide el código comentado en tu idioma.</strong> Todos los archivos de esta
+        web llevan comentarios en español que explican qué hace cada bloque. Dentro de seis
+        meses, tu yo del futuro lo agradecerá.</li>
+        <li><strong>Guarda copias antes de cambios grandes.</strong> Duplicar la carpeta del
+        proyecto cuesta dos segundos y te permite experimentar sin miedo.</li>
+        <li><strong>Sube tú el archivo real cuando algo falle.</strong> La IA no ve tu pantalla:
+        si le pasas el archivo tal y como lo tienes, trabajará sobre la realidad y no sobre
+        una versión antigua de la conversación.</li>
+        <li><strong>Desconfía de la sobreingeniería.</strong> A veces la IA propone soluciones
+        más complejas de lo necesario. Si una petición sencilla genera veinte líneas nuevas,
+        pregunta si hay una forma más simple. Casi siempre la hay.</li>
+        <li><strong>Tú tienes la última palabra.</strong> La IA propone; tú decides. El criterio
+        estético y pedagógico de esta web es humano.</li>
+      </ul>
+
+      <!-- ══════════ 3. ESTRUCTURA ══════════ -->
+      <h2>3 · Cómo está estructurada la web</h2>
+
+      <p>La web es <strong>multipágina</strong>: cada apartado del menú es un archivo
+      independiente. Todas comparten la misma navegación, el mismo pie y la misma hoja
+      de estilos, de forma que parecen una sola pieza.</p>
+
+      <div class="codigo">portfolio/
+├── index.html          → Portada con el Circuito del Tiempo
+├── sobre-mi.html       → Trayectoria en formato narrativo
+├── proyectos.html      → Tarjetas de proyectos, filtrables por rol
+├── formacion.html      → Formación académica y complementaria
+├── competencias.html   → Competencias transferibles, con iconos dibujados
+├── herramientas.html   → Herramientas que uso, filtrables por familia
+├── repositorios.html   → Fuentes externas de proyectos y archivos
+├── contacto.html       → Bornes de contacto y terminal de contribución
+├── como-se-hizo.html   → Esta página (fuera del menú)
+├── css/
+│   └── estilos.css     → Todo el aspecto visual, compartido
+├── js/
+│   ├── global.js       → Comportamientos comunes a todas las páginas
+│   └── circuito.js     → Solo la portada: dibuja el circuito interactivo
+└── img/                → Fotografías e imágenes de los proyectos</div>
+
+      <p>Una decisión importante: <strong>no se usa ningún framework</strong> (ni React,
+      ni WordPress, ni plantillas). Solo los tres lenguajes básicos de la web. La página
+      carga rápido, no depende de nadie y cualquier archivo se puede abrir y leer con un
+      editor de texto normal.</p>
+
+      <!-- ══════════ 4. TIPOS DE ARCHIVOS ══════════ -->
+      <h2>4 · Los tres materiales: HTML, CSS y JavaScript</h2>
+
+      <p>Siguiendo la metáfora electrónica de la web, cada tipo de archivo cumple un
+      papel distinto en la placa:</p>
+
+      <ul>
+        <li><strong>HTML — la placa y sus componentes.</strong> Define <em>qué hay</em> y
+        en qué orden: títulos, párrafos, imágenes, enlaces, tarjetas. Es el contenido puro.
+        Si abres <span class="mono">proyectos.html</span> verás que casi todo es texto
+        legible envuelto en etiquetas como <span class="mono">&lt;h2&gt;</span> (título)
+        o <span class="mono">&lt;p&gt;</span> (párrafo).</li>
+        <li><strong>CSS — la serigrafía y el acabado.</strong> Define <em>qué aspecto tiene</em>
+        todo lo anterior: colores, tipografías, espaciados, cómo se recolocan las tarjetas en
+        el móvil. Aquí vive un solo archivo, <span class="mono">estilos.css</span>: cambias un
+        color ahí y cambia en toda la web a la vez.</li>
+        <li><strong>JavaScript — la corriente.</strong> Define <em>qué ocurre cuando interactúas</em>:
+        que un hito del circuito se encienda al pulsarlo, que un filtro oculte tarjetas, que un
+        texto se escriba letra a letra. Sin JavaScript la web seguiría viéndose bien, pero
+        estaría «apagada»: todo estático.</li>
+      </ul>
+
+      <p>Una forma de recordarlo: el HTML es el esqueleto, el CSS la piel y el
+      JavaScript los reflejos. Los tres archivos son texto plano: nada está compilado
+      ni oculto, y por eso cualquiera puede estudiarlos.</p>
+
+      <!-- ══════════ 5. ELEMENTOS DINÁMICOS ══════════ -->
+      <h2>5 · Qué elementos dinámicos tiene la web</h2>
+
+      <ul>
+        <li><strong>El Circuito del Tiempo (portada).</strong> La línea de tiempo profesional
+        dibujada como un circuito con dos ramas en paralelo. Los hitos no están escritos en el
+        HTML: viven como una lista de datos en <span class="mono">js/circuito.js</span> y el
+        script los dibuja. Al pulsar un componente, la «corriente» ilumina la pista hasta él y
+        se muestra su ficha. En el móvil, esos mismos datos se muestran como lista desplegable.</li>
+        <li><strong>Pantalla de carga.</strong> El «// cargando el laboratorio…» inicial. Se
+        oculta sola cuando la página está lista, con una red de seguridad de 3 segundos para
+        que nunca se quede colgada.</li>
+        <li><strong>Tecleado de cabeceras.</strong> La frase verde sobre cada título (como la
+        de esta página) se escribe letra a letra, con cursor parpadeante, imitando una terminal.</li>
+        <li><strong>Aparición al hacer scroll.</strong> Tarjetas y bloques entran suavemente
+        cuando llegan a la pantalla, en lugar de estar todo visible de golpe.</li>
+        <li><strong>Halo del cursor.</strong> En ordenador, un tenue resplandor sigue al puntero
+        sobre la rejilla de puntos del fondo, como una lupa de taller.</li>
+        <li><strong>Filtros.</strong> En Proyectos puedes filtrar tarjetas por rol (docente,
+        formador, gestor) y en Herramientas por familia (IA, fabricación, programación,
+        audiovisual). El filtro solo muestra u oculta: no borra nada.</li>
+        <li><strong>Tarjetas desplegables.</strong> Los botones «+» expanden el detalle de cada
+        proyecto sin salir de la página.</li>
+        <li><strong>Terminal de contacto.</strong> En Contacto, una ventana de terminal simulada
+        invita a contribuir al laboratorio.</li>
+        <li><strong>Interruptor de movimiento.</strong> El más importante: un botón fijo permite
+        apagar todas las animaciones. Y si tu sistema operativo tiene activado «reducir
+        movimiento», la web lo respeta automáticamente y no anima nada. La accesibilidad
+        no es un extra: es parte del diseño.</li>
+      </ul>
+
+      <!-- ══════════ 6. CÓMO SE ACTUALIZA ══════════ -->
+      <h2>6 · Cómo se actualiza la web</h2>
+
+      <p>Un portfolio solo está vivo si crece. Por eso la web está construida en
+      <strong>bloques repetibles</strong>: añadir contenido nuevo casi nunca exige saber
+      programar, solo copiar un bloque existente y cambiar sus textos. Los propios archivos
+      contienen comentarios (líneas entre <span class="mono">&lt;!--</span> y
+      <span class="mono">--&gt;</span>, invisibles para el visitante) que indican qué bloque
+      copiar en cada caso.</p>
+
+      <p>Por ejemplo, para añadir un proyecto nuevo se abre
+      <span class="mono">proyectos.html</span>, se duplica una tarjeta completa
+      (todo el bloque <span class="mono">&lt;article class="tarjeta-proyecto"&gt;
+      … &lt;/article&gt;</span>) y se rellenan sus campos:</p>
+
+      <div class="codigo">&lt;article class="tarjeta-proyecto" data-roles="docente"&gt;
+  ...
+  &lt;h3&gt;Título del proyecto nuevo&lt;/h3&gt;
+  &lt;span class="curso mono"&gt;Mes y año&lt;/span&gt;
+  ...
+&lt;/article&gt;</div>
+
+      <p>El mismo patrón se repite en toda la web: un curso nuevo es un
+      <span class="mono">&lt;li&gt;</span> copiado en Formación; una herramienta nueva,
+      una fila en su familia de Herramientas; un hito nuevo del circuito, una entrada más
+      en la lista de datos de <span class="mono">circuito.js</span>. La estructura no se
+      toca: solo se alimenta.</p>
+
+      <p>El ciclo completo de actualización es siempre el mismo:</p>
+      <ol>
+        <li>Abrir el archivo en <strong>VS Code</strong> y copiar/editar el bloque.</li>
+        <li>Comprobar el resultado en el navegador con <strong>Live Server</strong>.</li>
+        <li>Subir los cambios al repositorio de <strong>GitHub</strong>: en unos instantes,
+        la web publicada se actualiza sola.</li>
+      </ol>
+
+      <div class="aviso">
+        <strong>Ritmo realista:</strong> más vale una entrada nueva cada trimestre que un
+        rediseño heroico cada dos años. El portfolio documenta un camino, no una foto fija.
+      </div>
+
+      <!-- ══════════ 7. DECISIONES DE FONDO ══════════ -->
+      <h2>7 · Decisiones de fondo (lo que no se ve)</h2>
+
+      <ul>
+        <li><strong>Estética con significado.</strong> El tema «laboratorio nocturno» —placa
+        de circuito, pistas menta, hitos ámbar— no es decoración: cuenta la historia de un
+        ingeniero que derivó su corriente hacia la educación. Elige una metáfora que hable
+        de ti y deja que atraviese toda la web.</li>
+        <li><strong>Un color por rol.</strong> Docente, formador y gestor tienen cada uno su
+        color, coherente en etiquetas y filtros. La coherencia visual ayuda a quien te lee
+        a orientarse sin esfuerzo.</li>
+        <li><strong>Móvil primero.</strong> Buena parte de las visitas llegarán desde un
+        teléfono. Cada elemento tiene pensada su versión móvil (el circuito, por ejemplo,
+        se convierte en lista).</li>
+        <li><strong>Privacidad.</strong> En un portfolio docente, las fotos con alumnado solo
+        se publican con los permisos correspondientes; en caso de duda, mejor la foto del
+        espacio, del material o del resultado.</li>
+        <li><strong>Sin dependencias.</strong> Al no usar librerías externas, dentro de diez
+        años estos archivos seguirán abriéndose y funcionando igual.</li>
+      </ul>
+
+      <!-- ══════════ 8. HAZ LA TUYA ══════════ -->
+      <h2>8 · ¿Quieres montar tu propio laboratorio?</h2>
+
+      <p>Todo lo anterior es extrapolable. La receta mínima: una idea clara de a quién te
+      diriges y qué quieres demostrar, una metáfora visual propia, un editor gratuito
+      (VS Code + Live Server), un asistente de IA con quien conversar, y GitHub Pages para
+      publicar sin coste. El resto es iteración y paciencia: esta web tampoco salió a la
+      primera.</p>
+
+      <p>Y si por el camino te atascas o quieres contarme cómo va tu circuito, ya sabes
+      dónde está el <a href="contacto.html">borne de contacto</a>.</p>
+
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="contenedor">
+    <span class="mono">// <a href="como-se-hizo.html" title="Cómo se hizo esta web" class="enlace-making-of">Diseñado y soldado con Fable 5</a> · Alejandro Rey · 2026 </span>
+    <span class="mono footer-nota">// Mejor experiencia abriendo esta web desde el navegador </span>
+  </div>
+</footer>
+
+<script src="js/global.js" defer></script>
+</body>
+</html>

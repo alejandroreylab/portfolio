@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <noscript><style>.pantalla-carga{display:none}</style></noscript>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Repositorios · Alejandro Rey</title>
+<meta name="description" content="Repositorios de recursos educativos de Alejandro Rey: actividades de aula, proyectos maker, programación y robótica, archivos de fabricación digital, bancos de imagen y sonido y divulgación en IA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css">
+
+<style>
+/* ════════════════════════════════════════════════════════════════
+   ESTILOS PROPIOS DE ESTA PÁGINA — "pestañas de protoboard"
+   Van aquí, y no en css/estilos.css, para que la página funcione
+   sin tocar la hoja compartida. Si algún día quieres moverlos,
+   copia este bloque entero al final de css/estilos.css y borra
+   esta etiqueta <style>. Todas las clases empiezan por .repo-
+   para que no choquen con nada de lo que ya existe.
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Pestañas: las categorías, arriba, como pistas de una placa ── */
+.repo-pestanas{display:flex; gap:10px; flex-wrap:wrap; position:relative; z-index:2}
+.repo-pestanas button{
+  background:var(--panel); border:1px solid var(--panel-borde);
+  border-radius:10px 10px 0 0; border-bottom-color:transparent;
+  cursor:pointer; font:inherit; font-size:.9rem; color:var(--texto-suave);
+  padding:10px 20px; transition:color .2s, border-color .2s, background .2s;
+}
+.repo-pestanas button:hover{color:var(--texto); border-color:var(--menta)}
+.repo-pestanas button.activo{
+  color:var(--ambar); border-color:var(--ambar-fuerte); background:#241f13;
+}
+
+/* ── Bajada: la pista discontinua que conecta la pestaña activa
+      con el módulo. El desplazamiento simula la corriente. ── */
+.repo-bajada{height:38px; position:relative}
+.repo-bajada .hilo{
+  position:absolute; top:0; bottom:0; width:2px;
+  background-image:linear-gradient(180deg, var(--ambar-fuerte) 50%, transparent 0);
+  background-size:2px 10px;
+  animation:repo-bajar .9s linear infinite;
+  transition:left .35s ease;
+}
+@keyframes repo-bajar{to{background-position:0 10px}}
+.repo-bajada .hilo::after{
+  content:""; position:absolute; bottom:-4px; left:-4px;
+  width:10px; height:10px; border-radius:50%;
+  background:var(--fondo); border:2px solid var(--ambar-fuerte);
+}
+
+/* ── Módulo de salida: la placa de prototipado ── */
+.repo-modulo{
+  background:var(--panel); border:1px solid var(--panel-borde);
+  border-radius:12px; padding:24px 26px;
+  background-image:radial-gradient(circle, #262b31 1px, transparent 1px);
+  background-size:22px 22px;
+}
+.repo-grupo{display:none}
+.repo-grupo.visible{display:block}
+.repo-grupo > h2{
+  font-size:1.05rem; font-weight:600; color:var(--ambar);
+  display:flex; align-items:center; gap:10px; margin-bottom:16px;
+}
+.repo-grupo > h2 svg{
+  width:22px; height:22px; flex:none; stroke:var(--menta); fill:none;
+  stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round;
+}
+
+/* ── Fichas de repositorio: nombre y para qué lo uso ── */
+.repo-fichas{list-style:none; display:grid; gap:2px}
+.repo-fichas li{
+  padding:14px 0 14px 22px; position:relative;
+  border-bottom:1px dashed var(--panel-borde);
+}
+.repo-fichas li:last-child{border-bottom:none}
+/* Vía de placa a la izquierda de cada entrada */
+.repo-fichas li::before{
+  content:""; position:absolute; left:0; top:20px;
+  width:10px; height:10px; border-radius:50%;
+  background:var(--fondo); border:2px solid var(--menta-apagada);
+  transition:border-color .2s;
+}
+.repo-fichas li:hover::before{border-color:var(--menta)}
+.repo-fichas li > a{
+  font-weight:500; text-decoration:none; font-size:1.02rem;
+  font-family:'Chakra Petch', sans-serif;
+}
+.repo-fichas li > a:hover{color:var(--ambar)}
+.repo-fichas .uso{display:block; color:var(--texto-suave); font-size:.92rem}
+
+/* Entrada en cascada al cambiar de pestaña */
+.repo-grupo.visible .repo-fichas li{animation:repo-alimentar .4s ease backwards}
+.repo-grupo.visible .repo-fichas li:nth-child(1){animation-delay:.02s}
+.repo-grupo.visible .repo-fichas li:nth-child(2){animation-delay:.06s}
+.repo-grupo.visible .repo-fichas li:nth-child(3){animation-delay:.10s}
+.repo-grupo.visible .repo-fichas li:nth-child(4){animation-delay:.14s}
+.repo-grupo.visible .repo-fichas li:nth-child(5){animation-delay:.18s}
+.repo-grupo.visible .repo-fichas li:nth-child(6){animation-delay:.22s}
+.repo-grupo.visible .repo-fichas li:nth-child(7){animation-delay:.26s}
+.repo-grupo.visible .repo-fichas li:nth-child(8){animation-delay:.30s}
+@keyframes repo-alimentar{
+  from{opacity:0; transform:translateX(-10px)}
+  to{opacity:1; transform:none}
+}
+
+/* ── Móvil: pestañas en fila deslizable, sin bajada ── */
+@media (max-width:760px){
+  .repo-pestanas{
+    flex-wrap:nowrap; overflow-x:auto; padding-bottom:2px; scrollbar-width:none;
+  }
+  .repo-pestanas::-webkit-scrollbar{display:none}
+  .repo-pestanas button{white-space:nowrap; border-radius:10px; border-bottom-color:var(--panel-borde)}
+  .repo-pestanas button.activo{border-bottom-color:var(--ambar-fuerte)}
+  .repo-bajada{height:18px}
+  .repo-bajada .hilo{display:none}
+  .repo-modulo{padding:20px 18px}
+}
+
+/* Accesibilidad: sin movimiento si el sistema lo pide */
+@media (prefers-reduced-motion:reduce){
+  .repo-bajada .hilo{animation:none!important}
+  .repo-grupo.visible .repo-fichas li{animation:none!important}
+}
+</style>
+</head>
+<body>
+  <!-- Pantalla de carga: se oculta sola desde js/global.js -->
+<div class="pantalla-carga" id="pantalla-carga" aria-hidden="true">
+  <span class="led-carga"></span>
+  <p class="mono">// cargando el laboratorio…</p>
+</div>
+
+<!-- ════════════ NAVEGACIÓN ════════════
+     Recuerda añadir el enlace a Repositorios también en el menú de
+     todas las demás páginas (index, sobre-mi, proyectos, formacion,
+     competencias, herramientas y contacto). -->
+<nav aria-label="Navegación principal">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">ALEJANDRO<span>_</span>REY<span>_LAB</span></a>
+    <ul class="nav-enlaces">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="sobre-mi.html">Sobre mí</a></li>
+      <li><a href="proyectos.html">Proyectos</a></li>
+      <li><a href="formacion.html">Formación</a></li>
+      <li><a href="competencias.html">Competencias</a></li>
+      <li><a href="herramientas.html">Herramientas</a></li>
+      <li><a href="repositorios.html" class="actual">Repositorios</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+<div class="cabecera-pagina contenedor">
+  <p class="eyebrow mono">// de dónde extraigo ideas y dónde encuentro material listo para el aula</p>
+  <h1>Repositorios</h1>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     CÓMO AÑADIR UN REPOSITORIO:
+     Copia un <li> dentro del grupo que corresponda y rellena
+     solo dos piezas: el enlace con el nombre y el <span class="uso">
+     con una línea de para qué lo usas. No hay etiquetas que poner.
+
+     CÓMO AÑADIR UN GRUPO NUEVO:
+     1. Copia un <button> en la fila de pestañas y ponle un
+        data-grupo con un nombre corto y sin tildes.
+     2. Copia un <section class="repo-grupo"> con ese mismo valor
+        en su data-grupo (puedes reutilizar el icono de otro grupo).
+     El JavaScript los empareja solo: no hay que tocarlo.
+     ════════════════════════════════════════════════════ -->
+<section style="padding-top: 24px;">
+  <div class="contenedor">
+
+    <!-- ════════════ PESTAÑAS DE PROTOBOARD ════════════ -->
+    <div class="repo-pestanas" role="tablist" aria-label="Grupos de repositorios">
+      <button type="button" class="activo" data-grupo="actividades" role="tab" aria-selected="true">Actividades de aula</button>
+      <button type="button" data-grupo="maker" role="tab" aria-selected="false">Proyectos maker</button>
+      <button type="button" data-grupo="codigo" role="tab" aria-selected="false">Programación y robótica</button>
+      <button type="button" data-grupo="fabricacion" role="tab" aria-selected="false">Fabricación digital</button>
+      <button type="button" data-grupo="medios" role="tab" aria-selected="false">Imagen y sonido</button>
+      <button type="button" data-grupo="ia" role="tab" aria-selected="false">Divulgación en IA</button>
+    </div>
+
+    <!-- Pista que baja de la pestaña activa hasta el módulo -->
+    <div class="repo-bajada" aria-hidden="true"><span class="hilo"></span></div>
+
+    <div class="repo-modulo">
+
+      <!-- ── ACTIVIDADES DE AULA ── -->
+      <section class="repo-grupo visible" data-grupo="actividades" aria-label="Actividades de aula">
+        <h2><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5 h7 a2 2 0 0 1 2 2 v13 a2 2 0 0 0 -2 -2 H4 Z"/><path d="M20 5 h-7 a2 2 0 0 0 -2 2 v13 a2 2 0 0 1 2 -2 h7 Z"/></svg>Actividades de aula</h2>
+        <ul class="repo-fichas">
+          <li>
+            <a href="https://esero.es" target="_blank" rel="noopener">ESERO Spain</a>
+            <span class="uso">La oficina educativa de la Agencia Espacial Europea en España: actividades del espacio con orientaciones para el profesorado y relación con el currículo.</span>
+          </li>
+          <li>
+            <a href="https://www.esa.int/Education/Teachers_Corner/Teach_with_space3" target="_blank" rel="noopener">ESA · Teach with Space</a>
+            <span class="uso">La colección europea de la que bebe ESERO: guías docentes, fichas de alumnado y kits de experimentos, en inglés y por niveles.</span>
+          </li>
+           <li>
+            <a href="https://www.stem.org.uk/" target="_blank" rel="noopener">STEM Learning</a>
+            <span class="uso">Repositorio de actividades STEM listas para adaptar: mi punto de partida cuando necesito una secuencia completa y no una idea suelta.</span>
+          </li>
+          <li>
+            <a href="https://procomun.intef.es" target="_blank" rel="noopener">Procomún (INTEF)</a>
+            <span class="uso">El gran banco español de recursos educativos abiertos, catalogado por etapa y área: útil cuando necesito algo alineado con el currículo.</span>
+          </li>
+          <li>
+            <a href="https://phet.colorado.edu/es/" target="_blank" rel="noopener">PhET Simulaciones</a>
+            <span class="uso">Simulaciones interactivas de ciencia y matemáticas en español: la forma más rápida de que se vea lo que no cabe en el laboratorio.</span>
+          </li>
+          <li>
+            <a href="https://www.sciencebuddies.org" target="_blank" rel="noopener">Science Buddies</a>
+            <span class="uso">Miles de experimentos y proyectos de investigación con materiales, procedimiento y nivel de dificultad ya definidos.</span>
+          </li>
+          <li>
+            <a href="https://www.exploratorium.edu/snacks" target="_blank" rel="noopener">Exploratorium · Science Snacks</a>
+            <span class="uso">Experimentos cortos con materiales cotidianos, del museo que inventó el formato: ideal para talleres de divulgación.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ── PROYECTOS MAKER ── -->
+      <section class="repo-grupo" data-grupo="maker" aria-label="Proyectos maker">
+        <h2><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 4.5 a4.5 4.5 0 0 0 -6 5.6 L4 14.6 a2 2 0 0 0 2.8 2.8 l4.5 -4.5 a4.5 4.5 0 0 0 5.6 -6 L14.4 4.4"/><path d="M15 15 L20 20"/></svg>Proyectos maker</h2>
+        <ul class="repo-fichas">
+          <li>
+            <a href="https://www.instructables.com" target="_blank" rel="noopener">Instructables</a>
+            <span class="uso">Proyectos de todo tipo explicados paso a paso: mi mina de retos manipulativos con materiales baratos.</span>
+          </li>
+          <li>
+            <a href="https://www.hackster.io" target="_blank" rel="noopener">Hackster.io</a>
+            <span class="uso">Proyectos de hardware documentados por la comunidad, con esquema, código y lista de materiales.</span>
+          </li>
+          <li>
+            <a href="https://learn.adafruit.com" target="_blank" rel="noopener">Adafruit Learning System</a>
+            <span class="uso">Guías de electrónica impecablemente explicadas: cuando quiero entender bien algo antes de llevarlo al aula.</span>
+          </li>
+          <li>
+            <a href="https://projecthub.arduino.cc" target="_blank" rel="noopener">Arduino Project Hub</a>
+            <span class="uso">Montajes con Arduino de todos los niveles: buen banco de ideas para proyectos finales de curso.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ── PROGRAMACIÓN Y ROBÓTICA ── -->
+      <section class="repo-grupo" data-grupo="codigo" aria-label="Programación y robótica">
+        <h2><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 7V4 M15 7V4 M9 20V17 M15 20V17 M7 9H4 M7 15H4 M20 9H17 M20 15H17"/></svg>Programación y robótica</h2>
+        <ul class="repo-fichas">
+          <li>
+            <a href="https://scratch.mit.edu/explore/projects/all" target="_blank" rel="noopener">Comunidad Scratch</a>
+            <span class="uso">Millones de proyectos remezclables: partir de algo que ya funciona ahorra media sesión y motiva mucho más.</span>
+          </li>
+          <li>
+            <a href="https://microbit.org/projects/" target="_blank" rel="noopener">micro:bit Projects</a>
+            <span class="uso">Retos oficiales organizados por edad y nivel, con el código listo para abrir en MakeCode.</span>
+          </li>
+          <li>
+            <a href="https://projects.raspberrypi.org" target="_blank" rel="noopener">Raspberry Pi Foundation Projects</a>
+            <span class="uso">Itinerarios completos de Scratch, Python y hardware, en español y con progresión pedagógica pensada.</span>
+          </li>
+          <li>
+            <a href="https://code.org" target="_blank" rel="noopener">Code.org</a>
+            <span class="uso">Cursos de pensamiento computacional por edades y actividades sueltas de una hora: lo más cómodo para empezar de cero.</span>
+          </li>
+          <li>
+            <a href="https://education.lego.com/en-us/lessons/" target="_blank" rel="noopener">LEGO Education Lessons</a>
+            <span class="uso">Planes de sesión de robótica con LEGO, con objetivos y evaluación incluidos: base de muchos retos de la FLL.</span>
+          </li>
+          <li>
+            <a href="https://www.tinkercad.com/circuits" target="_blank" rel="noopener">Tinkercad Circuits</a>
+            <span class="uso">Circuitos con Arduino simulados y compartidos por la comunidad: se prueban sin gastar una sola placa.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ── FABRICACIÓN DIGITAL ── -->
+      <section class="repo-grupo" data-grupo="fabricacion" aria-label="Fabricación digital">
+        <h2><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 L20 7.5 V16.5 L12 21 L4 16.5 V7.5 Z"/><path d="M4 7.5 L12 12 L20 7.5 M12 12 V21"/></svg>Fabricación digital</h2>
+        <ul class="repo-fichas">
+          <li>
+            <a href="https://www.thingiverse.com" target="_blank" rel="noopener">Thingiverse</a>
+            <span class="uso">El archivo histórico de modelos imprimibles: casi cualquier pieza que se te ocurra ya está resuelta ahí.</span>
+          </li>
+          <li>
+            <a href="https://makerworld.com" target="_blank" rel="noopener">MakerWorld</a>
+            <span class="uso">Modelos con el perfil de impresión ya preparado: lo más rápido cuando quiero imprimir sin ajustar nada.</span>
+          </li>
+          <li>
+            <a href="https://cults3d.com" target="_blank" rel="noopener">Cults3D</a>
+            <span class="uso">Catálogo muy cuidado con modelos libres y de pago: útil cuando busco algo con mejor acabado.</span>
+          </li>
+          <li>
+            <a href="https://www.printables.com" target="_blank" rel="noopener">Printables</a>
+            <span class="uso">La biblioteca de Prusa: modelos verificados, bien documentados y con una comunidad muy activa.</span>
+          </li>
+          <li>
+            <a href="https://www.thangs.com" target="_blank" rel="noopener">Thangs</a>
+            <span class="uso">Buscador que rastrea varios repositorios a la vez, incluso por forma: mi último recurso cuando no encuentro una pieza.</span>
+          </li>
+          <li>
+            <a href="https://grabcad.com/library" target="_blank" rel="noopener">GrabCAD Library</a>
+            <span class="uso">Piezas CAD industriales editables: perfectas para explicar mecanismos reales o partir de un modelo profesional.</span>
+          </li>
+          <li>
+            <a href="https://www.svgrepo.com" target="_blank" rel="noopener">SVG Repo</a>
+            <span class="uso">Vectores libres listos para corte láser y vinilo: entro aquí antes de ponerme a dibujar en Inkscape.</span>
+          </li>
+          <li>
+            <a href="https://openclipart.org" target="_blank" rel="noopener">Openclipart</a>
+            <span class="uso">Ilustraciones vectoriales de dominio público: siluetas y pictogramas sin problemas de licencia para materiales de aula.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ── IMAGEN Y SONIDO ── -->
+      <section class="repo-grupo" data-grupo="medios" aria-label="Imagen y sonido">
+        <h2><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M4 17 L10 11.5 L14 15.5 L17 13 L20 15.5"/></svg>Imagen y sonido</h2>
+        <ul class="repo-fichas">
+          <li>
+            <a href="https://openverse.org" target="_blank" rel="noopener">Openverse</a>
+            <span class="uso">Buscador de imagen y audio con licencia abierta que siempre muestra la licencia: el que enseño cuando explico derechos de uso.</span>
+          </li>
+          <li>
+            <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a>
+            <span class="uso">Fotografía y vídeo libres de buena calidad para presentaciones y materiales de formación.</span>
+          </li>
+          <li>
+            <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a>
+            <span class="uso">Imágenes, vídeos y música libres en un mismo sitio: cómodo cuando necesito de todo para un solo recurso.</span>
+          </li>
+          <li>
+            <a href="https://freesound.org" target="_blank" rel="noopener">Freesound</a>
+            <span class="uso">Banco colaborativo de sonidos: efectos y ambientes para vídeos, videojuegos y ambientaciones de taller.</span>
+          </li>
+          <li>
+            <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a>
+            <span class="uso">Archivo enorme de imágenes, diagramas y esquemas históricos con licencia clara: insustituible para material científico.</span>
+          </li>
+          <li>
+            <a href="https://images.nasa.gov" target="_blank" rel="noopener">NASA Image and Video Library</a>
+            <span class="uso">Imágenes y vídeos de la NASA de uso libre: el complemento visual natural de las actividades del espacio.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ── DIVULGACIÓN EN IA ── -->
+      <section class="repo-grupo" data-grupo="ia" aria-label="Divulgación en inteligencia artificial">
+        <h2><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="6.5" width="13" height="11" rx="2"/><path d="M7.5 9.5 L11.5 12 L7.5 14.5 Z"/><path d="M19 3 L20.1 5.6 L22.7 6.7 L20.1 7.8 L19 10.4 L17.9 7.8 L15.3 6.7 L17.9 5.6 Z"/></svg>Divulgación en IA</h2>
+        <ul class="repo-fichas">
+          <li>
+            <a href="https://www.youtube.com/@la_inteligencia_artificial" target="_blank" rel="noopener">La Inteligencia Artificial</a>
+            <span class="uso">Divulgación en español: buen sitio para entender un concepto nuevo antes de explicárselo a otros docentes.</span>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/@iamAImaster" target="_blank" rel="noopener">AI Master</a>
+            <span class="uso">Uso práctico de herramientas de IA paso a paso: lo miro cuando quiero probar algo concreto.</span>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/@mreflow" target="_blank" rel="noopener">Matt Wolfe</a>
+            <span class="uso">Repaso de novedades en IA: mi forma de no perder el hilo de un campo que cambia cada semana.</span>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/@SkillLeapAI" target="_blank" rel="noopener">Skill Leap AI</a>
+            <span class="uso">Tutoriales muy estructurados: los aprovecho como guion cuando preparo una formación.</span>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/@futurepedia_io" target="_blank" rel="noopener">Futurepedia</a>
+            <span class="uso">Rastreo de herramientas nuevas: de aquí salen bastantes de las que acaban en mi caja de herramientas.</span>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/@academIArtificial" target="_blank" rel="noopener">AcademIArtificial</a>
+            <span class="uso">IA explicada en español con enfoque didáctico: el canal que recomiendo a quien empieza de cero.</span>
+          </li>
+        </ul>
+      </section>
+
+    </div>
+
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="contenedor">
+    <span class="mono">// <a href="como-se-hizo.html" title="Cómo se hizo esta web" class="enlace-making-of">Diseñado y soldado con Fable 5</a> · Alejandro Rey · 2026 </span>
+    <span class="mono footer-nota">// Mejor experiencia abriendo esta web desde el navegador </span>
+  </div>
+</footer>
+
+<script>
+/* ── Pestañas del repositorio ──
+   Cada pestaña enciende su grupo y la pista discontinua se desliza
+   hasta colocarse debajo. No hay que tocar este código al añadir
+   repositorios ni grupos nuevos: se empareja por data-grupo.
+   Funciona con ratón y con teclado (flechas izquierda/derecha). */
+const pestanas = [...document.querySelectorAll('.repo-pestanas button')];
+const grupos   = [...document.querySelectorAll('.repo-grupo')];
+const bajada   = document.querySelector('.repo-bajada');
+const hilo     = bajada.querySelector('.hilo');
+
+function moverHilo() {
+  const activa = document.querySelector('.repo-pestanas button.activo');
+  const caja = bajada.getBoundingClientRect();
+  const p = activa.getBoundingClientRect();
+  hilo.style.left = (p.left + p.width / 2 - caja.left) + 'px';
+}
+
+function conmutar(pestana) {
+  const elegido = pestana.dataset.grupo;
+  pestanas.forEach(b => {
+    const activo = b === pestana;
+    b.classList.toggle('activo', activo);
+    b.setAttribute('aria-selected', activo);
+  });
+  grupos.forEach(grupo => {
+    /* Se quita y se vuelve a poner la clase para relanzar la cascada */
+    grupo.classList.remove('visible');
+    void grupo.offsetWidth;
+    if (grupo.dataset.grupo === elegido) grupo.classList.add('visible');
+  });
+  moverHilo();
+}
+
+pestanas.forEach((pestana, i) => {
+  pestana.addEventListener('click', () => conmutar(pestana));
+  pestana.addEventListener('keydown', ev => {
+    if (ev.key !== 'ArrowRight' && ev.key !== 'ArrowLeft') return;
+    ev.preventDefault();
+    const salto = ev.key === 'ArrowRight' ? 1 : -1;
+    const siguiente = pestanas[(i + salto + pestanas.length) % pestanas.length];
+    siguiente.focus();
+    conmutar(siguiente);
+  });
+});
+
+/* Colocar la pista al cargar y al cambiar el tamaño de la ventana */
+moverHilo();
+window.addEventListener('load', moverHilo);
+let temporizador;
+window.addEventListener('resize', () => {
+  clearTimeout(temporizador);
+  temporizador = setTimeout(moverHilo, 120);
+});
+</script>
+<script src="js/global.js" defer></script>
+</body>
+</html>

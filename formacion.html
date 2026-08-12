@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <noscript><style>.pantalla-carga{display:none}</style></noscript>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formación · Alejandro Rey</title>
+<meta name="description" content="Formación académica y complementaria de Alejandro Rey: ingeniería, pedagogía e inteligencia artificial.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <!-- Pantalla de carga: se oculta sola desde js/global.js -->
+<div class="pantalla-carga" id="pantalla-carga" aria-hidden="true">
+  <span class="led-carga"></span>
+  <p class="mono">// cargando el laboratorio…</p>
+</div>
+
+<nav aria-label="Navegación principal">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">ALEJANDRO<span>_</span>REY<span>_LAB</span></a>
+    <ul class="nav-enlaces">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="sobre-mi.html">Sobre mí</a></li>
+      <li><a href="proyectos.html">Proyectos</a></li>
+      <li><a href="formacion.html" class="actual">Formación</a></li>
+      <li><a href="competencias.html">Competencias</a></li>
+      <li><a href="herramientas.html">Herramientas</a></li>
+      <li><a href="repositorios.html">Repositorios</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+<div class="cabecera-pagina contenedor">
+  <p class="eyebrow mono">// base técnica, especialización pedagógica y aprendizaje continuo</p>
+  <h1>Formación</h1>
+</div>
+
+<!-- CÓMO AÑADIR FORMACIÓN:
+     · Académica: copia un <li> dentro de la rejilla (se coloca solo
+       en la cuadrícula de 2 columnas). Orden: de más reciente a más antigua.
+     · Complementaria: copia un <li> dentro del grupo temático que
+       corresponda (IA, Gestión de proyectos, Educación y tiempo libre).
+       Para crear un grupo nuevo, copia un <h3 class="subtitulo-tema">
+       con su <ul class="lista-formacion"> completo. -->
+<section style="padding-top: 24px;">
+  <div class="contenedor">
+
+    <!-- FORMACIÓN ACADÉMICA: bloque contenedor con matriz de 2 columnas.
+         Para añadir un título, copia un <li> completo: la cuadrícula
+         recoloca los elementos sola (orden: de más reciente a más antigua). -->
+    <h2 class="subtitulo-columna">Académica</h2>
+    <div class="bloque-tema">
+      <ul class="lista-formacion rejilla-cursos">
+        <li>
+          <span class="anios mono">2022 – actualidad</span>
+          <h3>Doctorado en Didácticas Específicas</h3>
+          <span class="centro">Universidad de Burgos</span>
+        </li>
+        <li>
+          <span class="anios mono">2021 – 2023</span>
+          <h3>Máster Universitario en Profesor de ESO y Bachillerato, FP y Enseñanza de Idiomas</h3>
+          <span class="centro">Universidad de Burgos</span>
+        </li>
+        <li>
+          <span class="anios mono">2021 – 2022</span>
+          <h3>Máster en Cooperación Internacional para el Desarrollo</h3>
+          <span class="centro">Universidad de Burgos</span>
+        </li>
+        <li>
+          <span class="anios mono">2014 – 2018</span>
+          <h3>Grado en Ingeniería Mecánica</h3>
+          <span class="centro">Universidad de Burgos</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- FORMACIÓN COMPLEMENTARIA: un bloque contenedor por temática,
+         siempre con los cursos en matriz de 2 columnas rellenada por
+         filas. Para crear una temática nueva, copia un .bloque-tema
+         completo con su subtítulo y su lista. -->
+    <h2 class="subtitulo-columna" style="margin-top: 48px;">Complementaria</h2>
+
+    <div class="bloque-tema">
+      <h3 class="subtitulo-tema">Inteligencia artificial</h3>
+      <ul class="lista-formacion rejilla-cursos">
+        <li>
+          <span class="anios mono">2026</span>
+          <h3>Dominio de la IA para docentes <em>(AI Fluency for Educators)</em></h3>
+          <span class="centro">Anthropic</span>
+        </li>
+        <li>
+          <span class="anios mono">2026</span>
+          <h3>Marco y fundamentos de la fluidez en IA <em>(AI Fluency Framework &amp; Foundations)</em></h3>
+          <span class="centro">Anthropic</span>
+        </li>
+        <li>
+          <span class="anios mono">2026</span>
+          <h3>IA, empatía y ética <em>(AI, Empathy &amp; Ethics)</em></h3>
+          <span class="centro">Universidad de California, Santa Cruz</span>
+        </li>
+        <li>
+          <span class="anios mono">2026</span>
+          <h3>Introducción a la IA generativa <em>(Introduction to Generative AI)</em></h3>
+          <span class="centro">Google</span>
+        </li>
+        <li>
+          <span class="anios mono">2025</span>
+          <h3>Ingeniería de prompts <em>(MOOC Prompt Engineering)</em></h3>
+          <span class="centro">HOWEST University of Applied Sciences</span>
+        </li>
+        <li>
+          <span class="anios mono">2025</span>
+          <h3>Custom GPTs: crea tus propios ChatGPT con tus propios datos</h3>
+          <span class="centro">Udemy</span>
+        </li>
+        <li>
+          <span class="anios mono">2025</span>
+          <h3>Introducción a la IA</h3>
+          <span class="centro">Big School</span>
+        </li>
+        <li>
+          <span class="anios mono">2025</span>
+          <h3>Iniciación a los flujos de trabajo con la IA</h3>
+          <span class="centro">Big School</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="bloque-tema">
+      <h3 class="subtitulo-tema">Gestión de proyectos</h3>
+      <ul class="lista-formacion rejilla-cursos">
+        <li>
+          <span class="anios mono">2025</span>
+          <h3>Desarrollo de software con metodologías ágiles: Scrum</h3>
+          <span class="centro">Grupo Focyl</span>
+        </li>
+        <li>
+          <span class="anios mono">2025</span>
+          <h3>Inicio y planificación de proyectos <em>(Initiating and Planning Projects)</em></h3>
+          <span class="centro">Universidad de California, Irvine</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="bloque-tema">
+      <h3 class="subtitulo-tema">Educación y tiempo libre</h3>
+      <ul class="lista-formacion rejilla-cursos">
+        <li>
+           <span class="anios mono">2021</span>
+          <h3>Monitor STEAM</h3>
+          <span class="centro">Universidad de Burgos</span>
+        </li>
+        <li>
+          <span class="anios mono">2014</span>
+          <h3>Título de Monitor de Ocio y Tiempo Libre</h3>
+          <span class="centro">Voluntared</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="contenedor">
+    <span class="mono">// <a href="como-se-hizo.html" title="Cómo se hizo esta web" class="enlace-making-of">Diseñado y soldado con Fable 5</a> · Alejandro Rey · 2026 </span>
+    <span class="mono footer-nota">// Mejor experiencia abriendo esta web desde el navegador </span>
+  </div>
+</footer>
+
+<script src="js/global.js" defer></script>
+</body>
+</html>
