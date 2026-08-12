@@ -1,4 +1,4 @@
-# Laboratorio Nocturno — Portfolio de Alejandro Rey
+# Laboratorio Nocturno — Portfolio de Alejandro Rey Lab
 
 Portfolio profesional de **Alejandro Rey**, docente, formador de formadores y gestor de proyectos educativos en La Estación de la Ciencia y la Tecnología (Universidad de Burgos).
 
