@@ -2,9 +2,9 @@
 
 Portfolio profesional de **Alejandro Rey**, docente, formador de formadores y gestor de proyectos educativos en La Estación de la Ciencia y la Tecnología (Universidad de Burgos).
 
-🔗 **Web en vivo:** [enlace a GitHub Pages] <!-- sustituye por tu URL real, p. ej. https://tuusuario.github.io/tu-repo/ -->
+🔗 **Web en vivo:** https://alejandroreylab.github.io/portfolio/
 
-![Captura de la portada](img/captura-portada.png) <!-- añade tu captura y ajusta la ruta -->
+![Captura de la portada](img/captura-portada.png)
 
 ## Qué es este proyecto
 
