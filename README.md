@@ -6,7 +6,7 @@ Portfolio profesional de **Alejandro Rey**, docente, formador de formadores y ge
 
 ![Captura de la portada](img/captura-portada.png)
 
-## ¿Qué es este proyecto?
+## ¿Qué es este repositorio?
 
 Este repositorio contiene el código fuente de mi portfolio personal: una web estática que funciona como escaparate profesional (para centros educativos, formación y colaboraciones) y como repositorio vivo de conocimiento, donde voy documentando proyectos, herramientas y recursos a medida que los desarrollo.
 
