@@ -1,0 +1,19 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "static-site",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "serve", "."],
+      "port": 5510,
+      "autoPort": true
+    },
+    {
+      "name": "neon",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["../Página web Neón/servidor.js"],
+      "port": 5520,
+      "autoPort": true
+    }
+  ]
+}

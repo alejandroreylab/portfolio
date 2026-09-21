@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Prototipo — Radar NEÓN (GSAP + MorphSVG)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+<style>
+  /* Tipografía confirmada por UI/UX Pro Max (--design-system) para el estilo "HUD / Sci-Fi FUI" */
+  :root {
+    --bg: #0a0e1a;
+    --panel: #10162a;
+    --grid: #263056;
+    --text: #e8ecf7;
+    --muted: #8892b3;
+    --initial: #8b5cf6;
+    --final: #00e5ff;
+    --font-display: "Share Tech Mono", monospace;
+    --font-body: "Fira Code", monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    background: radial-gradient(ellipse at top, #141b33 0%, var(--bg) 70%);
+    color: var(--text);
+    font-family: var(--font-body);
+    padding: 2rem 1rem;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--grid);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 0 40px -10px rgba(139, 92, 246, 0.25);
+  }
+  svg { display: block; }
+  .axis-line { stroke: var(--grid); stroke-width: 1.5; fill: none; }
+  .ring { stroke: var(--grid); stroke-width: 1; fill: none; opacity: 0.6; }
+  .label {
+    font-family: var(--font-display);
+    fill: var(--muted);
+    font-size: 11px;
+    font-weight: 400;
+    text-anchor: middle;
+  }
+  .poly-initial {
+    fill: var(--initial);
+    fill-opacity: 0.12;
+    stroke: var(--initial);
+    stroke-width: 2;
+    stroke-dasharray: 4 4;
+  }
+  .poly-final {
+    fill: var(--final);
+    fill-opacity: 0.18;
+    stroke: var(--final);
+    stroke-width: 2.5;
+  }
+  .dot { fill: var(--final); }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    justify-content: center;
+  }
+  button {
+    background: var(--final);
+    color: #04121a;
+    border: none;
+    border-radius: 999px;
+    padding: 0.6rem 1.2rem;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  button:hover { transform: translateY(-1px); }
+  button:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .legend {
+    display: flex;
+    gap: 1.25rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .swatch { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+</style>
+</head>
+<body>
+
+  <h1>Radar de 5 ámbitos — AI CFT (prototipo)</h1>
+
+  <div class="panel">
+    <svg id="radar" width="440" height="440" viewBox="0 0 440 440"></svg>
+  </div>
+
+  <div class="legend">
+    <span><i class="swatch" style="background:var(--initial)"></i> Diagnóstico inicial</span>
+    <span><i class="swatch" style="background:var(--final)"></i> Post-diagnóstico</span>
+  </div>
+
+  <div class="controls">
+    <button id="playBtn">Ver progreso de la tripulación</button>
+    <button id="resetBtn" disabled>Reiniciar</button>
+    <label class="toggle">
+      <input type="checkbox" id="reduceMotion" />
+      Reducir movimiento
+    </label>
+  </div>
+
+  <script src="./node_modules/gsap/dist/gsap.min.js"></script>
+  <script src="./node_modules/gsap/dist/MorphSVGPlugin.min.js"></script>
+  <script src="./node_modules/gsap/dist/DrawSVGPlugin.min.js"></script>
+  <script>
+    gsap.registerPlugin(MorphSVGPlugin, DrawSVGPlugin);
+
+    const svg = document.getElementById("radar");
+    const NS = "http://www.w3.org/2000/svg";
+    const cx = 220, cy = 220, maxR = 160, levels = 3;
+
+    // Los 5 ámbitos del AI CFT (UNESCO), en el orden del documento (§5, §2)
+    const axes = [
+      "Á1 Mentalidad\ncentrada en las personas",
+      "Á2 Ética",
+      "Á3 Técnico",
+      "Á4 Pedagogía\nde la IA",
+      "Á5 Desarrollo\nprofesional",
+    ];
+    const angleStep = (Math.PI * 2) / axes.length;
+    const angleFor = (i) => i * angleStep - Math.PI / 2;
+
+    // Valores en escala 0-3 (0 = nada, 3 = Crear). Reflejan §5 y §9 del plan:
+    // Á3 (técnico) y Á4 (pedagogía) son los que más suben; Á1, Á2 y Á5 se tocan "de refilón".
+    const initial = [0.4, 0.3, 0.6, 0.5, 0.3];
+    const final =   [1.1, 1.3, 2.5, 2.8, 1.1];
+
+    const pointFor = (angle, value) => {
+      const r = (value / levels) * maxR;
+      return [cx + r * Math.cos(angle), cy + r * Math.sin(angle)];
+    };
+
+    const pathFor = (values) => {
+      const pts = values.map((v, i) => pointFor(angleFor(i), v));
+      return "M" + pts.map((p) => p.join(",")).join(" L") + " Z";
+    };
+
+    const el = (tag, attrs) => {
+      const node = document.createElementNS(NS, tag);
+      Object.entries(attrs).forEach(([k, v]) => node.setAttribute(k, v));
+      svg.appendChild(node);
+      return node;
+    };
+
+    // Anillos de nivel (Adquirir / Profundizar / Crear)
+    for (let lvl = 1; lvl <= levels; lvl++) {
+      const pts = axes.map((_, i) => pointFor(angleFor(i), lvl));
+      el("polygon", {
+        class: "ring",
+        points: pts.map((p) => p.join(",")).join(" "),
+      });
+    }
+
+    // Ejes + etiquetas
+    const axisLines = [];
+    axes.forEach((label, i) => {
+      const [x, y] = pointFor(angleFor(i), levels);
+      const line = el("line", {
+        class: "axis-line",
+        x1: cx, y1: cy, x2: x, y2: y,
+      });
+      axisLines.push(line);
+
+      const [lx, ly] = pointFor(angleFor(i), levels + 0.55);
+      const text = el("text", { class: "label", x: lx, y: ly });
+      label.split("\n").forEach((line, li) => {
+        const tspan = document.createElementNS(NS, "tspan");
+        tspan.setAttribute("x", lx);
+        tspan.setAttribute("dy", li === 0 ? 0 : 12);
+        tspan.textContent = line;
+        text.appendChild(tspan);
+      });
+    });
+
+    // Polígono inicial (estático, de referencia)
+    const initialPoly = el("path", { class: "poly-initial", d: pathFor(initial) });
+
+    // Polígono "vivo": arranca igual al inicial, luego hace MorphSVG hacia el final
+    const livePoly = el("path", { class: "poly-final", d: pathFor(initial) });
+
+    const dots = axes.map((_, i) => {
+      const [x, y] = pointFor(angleFor(i), initial[i]);
+      return el("circle", { class: "dot", cx: x, cy: y, r: 4 });
+    });
+
+    const finalPathString = pathFor(final);
+    const finalPoints = axes.map((_, i) => pointFor(angleFor(i), final[i]));
+
+    const reduceToggle = document.getElementById("reduceMotion");
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    reduceToggle.checked = prefersReduced;
+
+    function playIntro() {
+      const reduced = reduceToggle.checked;
+      const tl = gsap.timeline();
+      if (reduced) {
+        gsap.set([...axisLines], { drawSVG: "100%" });
+        gsap.set([initialPoly, livePoly], { opacity: 1 });
+        gsap.set(dots, { scale: 1 });
+        return;
+      }
+      tl.set(axisLines, { drawSVG: "0%" })
+        .set([initialPoly, livePoly], { opacity: 0 })
+        .set(dots, { scale: 0, transformOrigin: "center" })
+        .to(axisLines, { drawSVG: "100%", duration: 0.6, stagger: 0.08, ease: "power2.out" })
+        .to([initialPoly, livePoly], { opacity: 1, duration: 0.5 }, "-=0.2")
+        .to(dots, { scale: 1, duration: 0.4, stagger: 0.05, ease: "back.out(2)" }, "-=0.3");
+    }
+
+    const playBtn = document.getElementById("playBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    playBtn.addEventListener("click", () => {
+      const reduced = reduceToggle.checked;
+      playBtn.disabled = true;
+
+      if (reduced) {
+        gsap.set(livePoly, { attr: { d: finalPathString } });
+        dots.forEach((dot, i) => {
+          gsap.set(dot, { attr: { cx: finalPoints[i][0], cy: finalPoints[i][1] } });
+        });
+        resetBtn.disabled = false;
+        return;
+      }
+
+      gsap.to(livePoly, {
+        duration: 1.3,
+        ease: "power2.inOut",
+        morphSVG: finalPathString,
+      });
+      dots.forEach((dot, i) => {
+        gsap.to(dot, {
+          duration: 1.3,
+          ease: "power2.inOut",
+          attr: { cx: finalPoints[i][0], cy: finalPoints[i][1] },
+        });
+      });
+      gsap.delayedCall(1.3, () => { resetBtn.disabled = false; });
+    });
+
+    resetBtn.addEventListener("click", () => {
+      gsap.to(livePoly, { duration: 0.8, ease: "power2.inOut", morphSVG: pathFor(initial) });
+      dots.forEach((dot, i) => {
+        const [x, y] = pointFor(angleFor(i), initial[i]);
+        gsap.to(dot, { duration: 0.8, ease: "power2.inOut", attr: { cx: x, cy: y } });
+      });
+      playBtn.disabled = false;
+      resetBtn.disabled = true;
+    });
+
+    playIntro();
+  </script>
+</body>
+</html>

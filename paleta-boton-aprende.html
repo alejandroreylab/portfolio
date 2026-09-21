@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paleta — Botón "Aprende" para nav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --menta: #6EE7C4;
+    --ambar: #F5A623;
+    --fondo: #0F1418;
+    --panel: #161D22;
+    --texto-suave: #A9B4B8;
+    --panel-borde: #263038;
+    --blanco: #E8ECEE;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--fondo);
+    color: var(--blanco);
+    font-family: 'IBM Plex Sans', sans-serif;
+    margin: 0;
+    padding: 60px 24px 120px;
+  }
+
+  h1 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 600;
+    font-size: 1.6rem;
+    max-width: 640px;
+    margin: 0 auto 8px;
+  }
+
+  .intro {
+    max-width: 640px;
+    margin: 0 auto 56px;
+    color: var(--texto-suave);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .muestra {
+    max-width: 720px;
+    margin: 0 auto 64px;
+  }
+
+  .etiqueta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--menta);
+    margin-bottom: 14px;
+  }
+
+  .nav-mock {
+    background: var(--panel);
+    border: 1px solid var(--panel-borde);
+    border-radius: 8px;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    color: var(--texto-suave);
+    text-decoration: none;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.92rem;
+    transition: color 0.2s ease;
+  }
+
+  .nav-links a:hover { color: var(--blanco); }
+
+  .nota {
+    max-width: 720px;
+    margin: 14px auto 0;
+    color: var(--texto-suave);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  /* ====== OPCIÓN 1: Ámbar sólido, contraste directo ====== */
+  .btn-1 {
+    background: var(--ambar);
+    color: var(--fondo);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.92rem;
+    padding: 9px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-1:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(245, 166, 35, 0.35);
+  }
+  .btn-1 .estrella { font-size: 0.9rem; }
+  .btn-1 .flecha { font-size: 0.85rem; }
+
+  /* ====== OPCIÓN 2: Contorno, se rellena al hover ====== */
+  .btn-2 {
+    background: transparent;
+    color: var(--ambar);
+    border: 1.5px solid var(--ambar);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.92rem;
+    padding: 8px 17px;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: all 0.2s ease;
+  }
+  .btn-2:hover {
+    background: var(--ambar);
+    color: var(--fondo);
+  }
+
+  /* ====== OPCIÓN 3: Texto menta con estrella animada tipo "señal" ====== */
+  .btn-3 {
+    background: transparent;
+    color: var(--menta);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.92rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 4px;
+    position: relative;
+  }
+  .btn-3 .estrella {
+    display: inline-block;
+    animation: parpadeo 2.2s ease-in-out infinite;
+  }
+  @keyframes parpadeo {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+  .btn-3::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 4px;
+    right: 4px;
+    height: 1px;
+    background: var(--menta);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .btn-3:hover::after { transform: scaleX(1); }
+
+  /* ====== OPCIÓN 4: Píldora tipo "badge de estado", doble tono ====== */
+  .btn-4 {
+    background: var(--fondo);
+    border: 1.5px solid var(--menta);
+    color: var(--blanco);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.88rem;
+    padding: 7px 8px 7px 16px;
+    border-radius: 999px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: border-color 0.2s ease;
+  }
+  .btn-4:hover { border-color: var(--ambar); }
+  .btn-4 .icono-circulo {
+    background: var(--menta);
+    color: var(--fondo);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    transition: background 0.2s ease;
+  }
+  .btn-4:hover .icono-circulo { background: var(--ambar); }
+
+  /* ====== OPCIÓN 5: Bloque tipo "panel de circuito" con esquina cortada ====== */
+  .btn-5 {
+    background: var(--panel);
+    border: 1px solid var(--panel-borde);
+    color: var(--blanco);
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 500;
+    font-size: 0.85rem;
+    padding: 9px 16px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    position: relative;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .btn-5:hover {
+    border-color: var(--menta);
+    color: var(--menta);
+  }
+  .btn-5 .estrella { color: var(--ambar); }
+
+  /* Paleta de tokens al final */
+  .paleta-tokens {
+    max-width: 720px;
+    margin: 72px auto 0;
+    padding-top: 40px;
+    border-top: 1px solid var(--panel-borde);
+  }
+  .tokens-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .token {
+    border: 1px solid var(--panel-borde);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .token-color { height: 48px; }
+  .token-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--texto-suave);
+    padding: 8px 10px;
+    background: var(--panel);
+  }
+</style>
+</head>
+<body>
+
+  <h1>Botón "Aprende" — 5 opciones para el nav</h1>
+  <p class="intro">Mismo nav de referencia (index · sobre-mi · proyectos · formacion · competencias · herramientas · repositorios · contacto), con el botón de entrada a NEÓN como último elemento. Todas usan tus tokens reales: --menta, --ambar, --fondo, --panel, --panel-borde.</p>
+
+  <!-- OPCIÓN 1 -->
+  <div class="muestra">
+    <div class="etiqueta">Opción 1 — Ámbar sólido, contraste directo</div>
+    <div class="nav-mock">
+      <div class="nav-links">
+        <a href="#">Proyectos</a>
+        <a href="#">Formación</a>
+        <a href="#">Competencias</a>
+        <a href="#">Herramientas</a>
+        <a class="btn-1" href="#"><span class="estrella">✦</span>Aprende<span class="flecha">↗</span></a>
+      </div>
+    </div>
+    <p class="nota">La más directa: ámbar de fondo igual que tus CTAs existentes. Máxima visibilidad, pero compite en peso visual con el resto del nav si ya usas ámbar en otro sitio de la página.</p>
+  </div>
+
+  <!-- OPCIÓN 2 -->
+  <div class="muestra">
+    <div class="etiqueta">Opción 2 — Contorno, se rellena al pasar el cursor</div>
+    <div class="nav-mock">
+      <div class="nav-links">
+        <a href="#">Proyectos</a>
+        <a href="#">Formación</a>
+        <a href="#">Competencias</a>
+        <a href="#">Herramientas</a>
+        <a class="btn-2" href="#"><span class="estrella">✦</span>Aprende<span class="flecha">↗</span></a>
+      </div>
+    </div>
+    <p class="nota">Menos invasivo en reposo, gana presencia solo al interactuar. Buen equilibrio si no quieres que el nav grite constantemente.</p>
+  </div>
+
+  <!-- OPCIÓN 3 -->
+  <div class="muestra">
+    <div class="etiqueta">Opción 3 — Texto menta con estrella parpadeante</div>
+    <div class="nav-mock">
+      <div class="nav-links">
+        <a href="#">Proyectos</a>
+        <a href="#">Formación</a>
+        <a href="#">Competencias</a>
+        <a href="#">Herramientas</a>
+        <a class="btn-3" href="#"><span class="estrella">✦</span>Aprende<span class="flecha">↗</span></a>
+      </div>
+    </div>
+    <p class="nota">Sin fondo, se integra como un enlace más pero la estrella parpadeando (señal de radar/nave) lo distingue sutilmente. Encaja con la narrativa espacial de NEÓN sin gritarlo.</p>
+  </div>
+
+  <!-- OPCIÓN 4 -->
+  <div class="muestra">
+    <div class="etiqueta">Opción 4 — Píldora con icono en círculo</div>
+    <div class="nav-mock">
+      <div class="nav-links">
+        <a href="#">Proyectos</a>
+        <a href="#">Formación</a>
+        <a href="#">Competencias</a>
+        <a href="#">Herramientas</a>
+        <a class="btn-4" href="#">Aprende<span class="icono-circulo">↗</span></a>
+      </div>
+    </div>
+    <p class="nota">Forma de "badge de estado" — como si fuera un indicador activo, no solo un enlace. El círculo cambia de menta a ámbar al hover, marcando la transición entre "tu web" y "otro sistema".</p>
+  </div>
+
+  <!-- OPCIÓN 5 -->
+  <div class="muestra">
+    <div class="etiqueta">Opción 5 — Panel con esquina cortada (lenguaje PCB)</div>
+    <div class="nav-mock">
+      <div class="nav-links">
+        <a href="#">Proyectos</a>
+        <a href="#">Formación</a>
+        <a href="#">Competencias</a>
+        <a href="#">Herramientas</a>
+        <a class="btn-5" href="#"><span class="estrella">✦</span>Aprende<span class="flecha">↗</span></a>
+      </div>
+    </div>
+    <p class="nota">Reutiliza directamente tu vocabulario visual de placa de circuito (esquina cortada, monospace) en vez de un botón redondeado genérico. Es la opción más "de marca", pero la más arriesgada si el resto del nav no tiene ese lenguaje.</p>
+  </div>
+
+  <div class="paleta-tokens">
+    <div class="etiqueta">Tokens usados</div>
+    <div class="tokens-grid">
+      <div class="token">
+        <div class="token-color" style="background: var(--menta);"></div>
+        <div class="token-label">--menta<br>#6EE7C4</div>
+      </div>
+      <div class="token">
+        <div class="token-color" style="background: var(--ambar);"></div>
+        <div class="token-label">--ambar<br>#F5A623</div>
+      </div>
+      <div class="token">
+        <div class="token-color" style="background: var(--fondo);"></div>
+        <div class="token-label">--fondo<br>#0F1418</div>
+      </div>
+      <div class="token">
+        <div class="token-color" style="background: var(--panel);"></div>
+        <div class="token-label">--panel<br>#161D22</div>
+      </div>
+      <div class="token">
+        <div class="token-color" style="background: var(--panel-borde);"></div>
+        <div class="token-label">--panel-borde<br>#263038</div>
+      </div>
+    </div>
+    <p class="nota" style="margin-top: 20px;">Nota: --menta y --ambar son los valores que usa tu sistema de diseño (deducidos de la nomenclatura de variables); ajusta los hex exactos si difieren de los reales en tu CSS.</p>
+  </div>
+
+</body>
+</html>
