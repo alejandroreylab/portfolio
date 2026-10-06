@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuestas de favicon · Alejandro Rey</title>
+<meta name="robots" content="noindex">
+<!-- Página de trabajo local para elegir favicon. No forma parte de la navegación de la web. -->
+<style>
+  :root {
+    --fondo:#16181b; --panel:#1e2126; --borde:#2b2f35;
+    --menta:#5dcaa5; --ambar:#fac775; --texto:#eef0ec; --suave:#a9aeab;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--fondo); color:var(--texto); font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif; padding:32px 20px 64px; }
+  .ancho { max-width:1100px; margin:0 auto; }
+  h1 { font-size:1.6rem; letter-spacing:.02em; }
+  .intro { color:var(--suave); max-width:70ch; margin:8px 0 28px; }
+  .rejilla { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:18px; }
+  .tarjeta { background:var(--panel); border:1px solid var(--borde); border-radius:12px; padding:18px; display:flex; flex-direction:column; gap:14px; }
+  .cab { display:flex; align-items:baseline; gap:10px; }
+  .num { font:700 .9rem ui-monospace,monospace; color:var(--fondo); background:var(--menta); border-radius:6px; padding:1px 8px; }
+  .cab h2 { font-size:1.05rem; }
+  .desc { color:var(--suave); font-size:.92rem; }
+  .tamanos { display:flex; align-items:flex-end; gap:16px; flex-wrap:wrap; padding:14px; border-radius:8px; background:#0f1113; }
+  .tamanos.claro { background:#f1f3f4; }
+  .tamanos figure { display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .tamanos figcaption { font:.7rem ui-monospace,monospace; color:#7d8480; }
+  .tamanos.claro figcaption { color:#5f6368; }
+  .tamanos svg { display:block; }
+  /* Pestañas de navegador simuladas */
+  .pestanas { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .pestana { display:flex; align-items:center; gap:8px; padding:8px 12px; border-radius:8px 8px 0 0; font:.78rem system-ui,sans-serif; white-space:nowrap; overflow:hidden; }
+  .pestana.osc { background:#35363a; color:#e8eaed; }
+  .pestana.cla { background:#fff; color:#202124; border:1px solid #dadce0; border-bottom:0; }
+  .pestana svg { flex:none; }
+  .pestana span { overflow:hidden; text-overflow:ellipsis; }
+  .pros { font-size:.85rem; color:var(--suave); }
+  .pros b { color:var(--texto); font-weight:600; }
+  .acciones { margin-top:auto; }
+  .acciones a { color:var(--menta); font-size:.85rem; }
+  .nota { margin-top:32px; padding:16px 18px; border:1px dashed var(--borde); border-radius:10px; color:var(--suave); font-size:.92rem; }
+  .nota b { color:var(--texto); }
+</style>
+</head>
+<body>
+
+<!-- Los 7 diseños se definen una vez como <symbol> y se reutilizan en cada tamaño.
+     Las letras están dibujadas con trazos (no con texto) porque un favicon SVG
+     no puede cargar tipografías externas. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+
+    <!-- 1 · Monograma sobrio -->
+    <symbol id="f1" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="7" fill="#16181b"/>
+      <g fill="none" stroke="#5dcaa5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 23L11 9L16 23M8 18H14"/>
+        <path d="M19 23V9H23.5a3.5 3.5 0 0 1 0 7H19M23 16L26 23"/>
+      </g>
+    </symbol>
+
+    <!-- 2 · AR con cursor (guiño al wordmark ALEJANDRO_REY_LAB) -->
+    <symbol id="f2" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="7" fill="#16181b"/>
+      <g fill="none" stroke="#5dcaa5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4.5 21L9 9.5L13.5 21M6.3 17H11.7"/>
+        <path d="M16.5 21V9.5H20.2a3 3 0 0 1 0 6H16.5M19.8 15.5L22.8 21"/>
+      </g>
+      <rect x="24.5" y="20" width="5" height="2.4" rx="1" fill="#fac775"/>
+    </symbol>
+
+    <!-- 3 · Insignia de Neón adaptada (anillos + AR) -->
+    <symbol id="f3" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="7" fill="#05070f"/>
+      <circle cx="16" cy="16" r="11.5" fill="none" stroke="#4ff0ff" stroke-width="2.2"/>
+      <circle cx="16" cy="16" r="8.4" fill="none" stroke="#8b7cff" stroke-width="1" stroke-dasharray="1.6 1.6" opacity=".9"/>
+      <g fill="none" stroke="#eef2ff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9.8 21L12.7 11L15.6 21M10.8 17.6H14.6"/>
+        <path d="M17.6 21V11H20.2a2.6 2.6 0 0 1 0 5.2H17.6M20 16.2L22.3 21"/>
+      </g>
+    </symbol>
+
+    <!-- 4 · Pista de circuito en forma de A -->
+    <symbol id="f4" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="7" fill="#16181b"/>
+      <path d="M7 25V18H12L16 8L20 18H25V25" fill="none" stroke="#5dcaa5" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="7" cy="25" r="2.3" fill="#5dcaa5"/>
+      <circle cx="25" cy="25" r="2.3" fill="#5dcaa5"/>
+      <circle cx="16" cy="8" r="2.8" fill="#fac775"/>
+    </symbol>
+
+    <!-- 5 · Chip con A -->
+    <symbol id="f5" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="7" fill="#16181b"/>
+      <g stroke="#5dcaa5" stroke-width="1.8" stroke-linecap="round">
+        <path d="M12 4.5V8M16 4.5V8M20 4.5V8M12 24V27.5M16 24V27.5M20 24V27.5M4.5 12H8M4.5 16H8M4.5 20H8M24 12H27.5M24 16H27.5M24 20H27.5"/>
+      </g>
+      <rect x="8" y="8" width="16" height="16" rx="3" fill="#16181b" stroke="#5dcaa5" stroke-width="2"/>
+      <path d="M12.2 21L16 11L19.8 21M13.5 17.6H18.5" fill="none" stroke="#fac775" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <!-- 6 · Prompt de terminal -->
+    <symbol id="f6" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="7" fill="#16181b"/>
+      <path d="M8 10L16 16L8 22" fill="none" stroke="#5dcaa5" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="18" y="20.6" width="8" height="2.8" rx="1.2" fill="#fac775"/>
+    </symbol>
+
+    <!-- 7 · Sello circular (sirve también de avatar para redes) -->
+    <symbol id="f7" viewBox="0 0 32 32">
+      <circle cx="16" cy="16" r="16" fill="#16181b"/>
+      <circle cx="16" cy="16" r="13.6" fill="none" stroke="#5dcaa5" stroke-width="1.8"/>
+      <g fill="none" stroke="#fac775" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8.6 21.5L12.2 10.5L15.8 21.5M9.9 17.6H14.5"/>
+        <path d="M17.8 21.5V10.5H20.6a2.9 2.9 0 0 1 0 5.8H17.8M20.3 16.3L23.1 21.5"/>
+      </g>
+    </symbol>
+
+  </defs>
+</svg>
+
+<div class="ancho">
+  <h1>Propuestas de favicon</h1>
+  <p class="intro">Siete direcciones para el icono de la web, usando la paleta actual del portfolio (grafito, menta y ámbar) salvo la nº 3, que hereda la de Neón. Cada una se ve a 16, 32, 64 y 180 px, sobre fondo oscuro y claro, y en una pestaña simulada. Fíjate sobre todo en los 16 px: es el tamaño real de la pestaña.</p>
+
+  <div class="rejilla" id="rejilla"></div>
+
+  <p class="nota"><b>Cómo elegir:</b> dime el número (o mezcla, por ejemplo «la 1 con el cursor de la 2»). Después preparo el SVG definitivo, el PNG de 180 px para iOS y el de 512 px, y los enlazo en todas las páginas.</p>
+</div>
+
+<script>
+  const propuestas = [
+    { id:'f1', t:'Monograma sobrio', d:'«AR» en menta sobre grafito, esquinas redondeadas. La opción más neutra y profesional.',
+      p:'<b>Pros:</b> muy legible a 16 px, no se parece a nada genérico de IA. <b>Contras:</b> poco memorable por sí sola.' },
+    { id:'f2', t:'AR con cursor', d:'Monograma con un guion bajo ámbar, como el «_» del wordmark ALEJANDRO_REY_LAB.',
+      p:'<b>Pros:</b> enlaza directamente con la marca que ya tienes. <b>Contras:</b> las letras son algo más pequeñas, a 16 px pierde aire.' },
+    { id:'f3', t:'Insignia Neón con AR', d:'Los anillos cian y violeta de Neón con tus iniciales dentro.',
+      p:'<b>Pros:</b> une portfolio y Neón en una sola marca. <b>Contras:</b> cambia la paleta respecto al portfolio (menta/ámbar); a 16 px los anillos se funden.' },
+    { id:'f4', t:'Pista de circuito', d:'Una «A» dibujada como pista de placa con nodos; el vértice en ámbar.',
+      p:'<b>Pros:</b> usa la metáfora del circuito de la portada y tiene silueta propia. <b>Contras:</b> se lee más como un pico que como una A.' },
+    { id:'f5', t:'Chip con A', d:'Un microchip con patillas y una «A» en ámbar.',
+      p:'<b>Pros:</b> comunica «tecnología» de un vistazo. <b>Contras:</b> a 16 px las patillas son ruido, y es un recurso muy visto.' },
+    { id:'f6', t:'Prompt de terminal', d:'El símbolo «&gt;_» en menta con cursor ámbar.',
+      p:'<b>Pros:</b> el más simple y el más nítido a 16 px; encaja con el estilo laboratorio. <b>Contras:</b> no lleva tus iniciales; es un icono genérico de «terminal».' },
+    { id:'f7', t:'Sello circular', d:'Anillo menta con «AR» en ámbar, en formato redondo.',
+      p:'<b>Pros:</b> sirve también de avatar en LinkedIn o GitHub. <b>Contras:</b> los navegadores lo muestran sobre un cuadrado transparente; el círculo es más pequeño que los otros.' }
+  ];
+  const tamanos = [16, 32, 64, 180];
+  const uso = (id, px) => `<svg width="${px}" height="${px}" viewBox="0 0 32 32" role="img" aria-label="Favicon"><use href="#${id}"/></svg>`;
+  const fila = (id, clase) => `<div class="tamanos ${clase}">` +
+    tamanos.map(px => `<figure>${uso(id, px)}<figcaption>${px}px</figcaption></figure>`).join('') + '</div>';
+
+  document.getElementById('rejilla').innerHTML = propuestas.map((x, i) => `
+    <article class="tarjeta">
+      <div class="cab"><span class="num">${i + 1}</span><h2>${x.t}</h2></div>
+      <p class="desc">${x.d}</p>
+      ${fila(x.id, '')}
+      ${fila(x.id, 'claro')}
+      <div class="pestanas">
+        <div class="pestana osc">${uso(x.id, 16)}<span>Alejandro Rey · Portfolio</span></div>
+        <div class="pestana cla">${uso(x.id, 16)}<span>Alejandro Rey · Portfolio</span></div>
+      </div>
+      <p class="pros">${x.p}</p>
+      <div class="acciones"><a href="#" data-id="${x.id}" data-n="${i + 1}">Descargar SVG</a></div>
+    </article>`).join('');
+
+  // Genera el SVG suelto a partir del <symbol> para poder descargarlo.
+  document.querySelectorAll('.acciones a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const s = document.getElementById(a.dataset.id);
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">${s.innerHTML}</svg>`;
+      const enlace = document.createElement('a');
+      enlace.href = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
+      enlace.download = `favicon-opcion-${a.dataset.n}.svg`;
+      enlace.click();
+      URL.revokeObjectURL(enlace.href);
+    });
+  });
+</script>
+</body>
+</html>
