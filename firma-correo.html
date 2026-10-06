@@ -31,7 +31,7 @@
 <body>
 <div class="ancho">
   <h1>Firma de correo</h1>
-  <p>Tres líneas, solo texto, sin ninguna referencia institucional. Escribe la dirección de tu web y la firma se actualiza; después pulsa «Copiar firma» y pégala en los ajustes de Gmail (Ver todos los ajustes → General → Firma).</p>
+  <p>Diseño en dos columnas (monograma, línea vertical y datos), sin ninguna referencia institucional. Escribe la dirección de tu web y la firma se actualiza; después pulsa «Copiar firma» y pégala en los ajustes de Gmail (Ver todos los ajustes → General → Firma).</p>
 
   <div class="caja">
     <label for="web">Dirección de tu web (sin https://). Déjalo vacío para omitirla.</label>
@@ -53,9 +53,9 @@
   <div class="caja">
     <h2>Notas</h2>
     <ul>
-      <li>El nombre va en negrita y los enlaces en el verde de la web; el resto, en gris, para que no compita con el mensaje.</li>
+      <li>Estructura calcada de una firma institucional: marca a la izquierda, línea vertical, nombre y rol en serif, y etiquetas de color (Web, GitHub) como el «Tel.» de la original.</li>
       <li>Los colores y la tipografía se definen en línea (atributo style en cada elemento) porque los clientes de correo ignoran las hojas de estilo.</li>
-      <li>Sin imagen a propósito: muchos clientes la bloquean y la firma se vería rota. Cuando la web esté publicada se puede añadir el monograma «AR» enlazando la imagen por su dirección completa.</li>
+      <li>El monograma se carga desde la web publicada. Al pegar en Gmail, comprueba que la imagen se vea; si aparece rota, la web aún no está en línea. Para clientes que bloquean imágenes, usa la versión en texto plano.</li>
     </ul>
   </div>
 </div>
@@ -70,16 +70,26 @@
   const limpiar = v => v.trim().replace(/^https?:\/\//i, '').replace(/\/+$/, '');
   const enlace = d => `<a href="https://${d}" style="color:#1f9d78;text-decoration:none;">${d}</a>`;
 
+  const LOGO = 'https://alejandroreylab.github.io/portfolio/img/icon-512.png';
+  const etiqueta = t => `<span style="color:#1f9d78;">${t}</span>`;
+
   function pintar() {
     const web = limpiar(entrada.value);
-    const enlaces = [web && enlace(web), enlace(GITHUB)].filter(Boolean).join(' &nbsp;·&nbsp; ');
+    const fuente = 'font-family:Georgia,\'Times New Roman\',serif;font-size:14px;line-height:1.55;color:#202124;';
+    const filas = [
+      web && `<div>${etiqueta('Web')}&nbsp; ${enlace(web)}</div>`,
+      `<div>${etiqueta('GitHub')}&nbsp; ${enlace(GITHUB)}</div>`
+    ].filter(Boolean).join('');
     zona.innerHTML =
-      `<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#5f6368;">` +
-      `<div style="font-size:15px;font-weight:bold;color:#202124;">Alejandro Rey</div>` +
-      `<div>Ingeniero y docente &nbsp;·&nbsp; Tecnología educativa</div>` +
-      `<div>${enlaces}</div></div>`;
-    plano.value = ['Alejandro Rey', 'Ingeniero y docente · Tecnología educativa',
-      [web, GITHUB].filter(Boolean).join('  ·  ')].join('\n');
+      `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;${fuente}"><tr>` +
+      `<td style="padding:0 18px 0 0;vertical-align:middle;"><img src="${LOGO}" width="64" height="64" alt="AR" style="display:block;border:0;border-radius:12px;"></td>` +
+      `<td style="padding:2px 0 2px 18px;border-left:2px solid #5dcaa5;vertical-align:middle;">` +
+      `<div style="font-weight:bold;font-size:15px;">Alejandro Rey</div>` +
+      `<div>Ingeniero y docente</div>` +
+      `<div style="font-weight:bold;">Tecnolog\u00eda educativa</div>` +
+      `<div style="margin-top:4px;">${filas}</div></td></tr></table>`;
+    plano.value = ['Alejandro Rey', 'Ingeniero y docente', 'Tecnolog\u00eda educativa',
+      web && 'Web: ' + web, 'GitHub: ' + GITHUB].filter(Boolean).join('\n');
   }
 
   document.getElementById('copiar').addEventListener('click', () => {
