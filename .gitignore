@@ -1,0 +1,3 @@
+node_modules/
+system_prompts_leaks/
+.claude/scheduled_tasks.lock

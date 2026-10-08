@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firma de correo · Alejandro Rey</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+<!-- Página de trabajo local para preparar la firma. No forma parte de la navegación de la web. -->
+<style>
+  :root { --fondo:#16181b; --panel:#1e2126; --borde:#2b2f35; --menta:#5dcaa5; --ambar:#fac775; --texto:#eef0ec; --suave:#a9aeab; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--fondo); color:var(--texto); font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif; padding:32px 20px 64px; }
+  .ancho { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:20px; }
+  h1 { font-size:1.5rem; }
+  h2 { font-size:1rem; color:var(--menta); margin-bottom:8px; }
+  p, li { color:var(--suave); font-size:.95rem; }
+  ul { padding-left:20px; }
+  .caja { background:var(--panel); border:1px solid var(--borde); border-radius:12px; padding:18px; }
+  label { display:block; font-size:.9rem; margin-bottom:6px; }
+  input { width:100%; padding:9px 12px; border-radius:8px; border:1px solid var(--borde); background:#0f1113; color:var(--texto); font:inherit; }
+  /* Zona de vista previa: fondo blanco porque así se verá en el correo */
+  .correo { background:#fff; border-radius:8px; padding:20px; color:#202124; }
+  .correo p { color:#202124; }
+  textarea { width:100%; min-height:90px; padding:10px 12px; border-radius:8px; border:1px solid var(--borde); background:#0f1113; color:var(--texto); font:.85rem ui-monospace,monospace; resize:vertical; }
+  button { margin-top:10px; padding:9px 16px; border-radius:8px; border:0; background:var(--menta); color:#0f1113; font:600 .9rem system-ui,sans-serif; cursor:pointer; }
+  button:focus-visible { outline:2px solid var(--ambar); outline-offset:3px; }
+  .estado { margin-left:10px; font-size:.85rem; color:var(--ambar); }
+</style>
+</head>
+<body>
+<div class="ancho">
+  <h1>Firma de correo</h1>
+  <p>Diseño en dos columnas (monograma, línea vertical y datos), sin ninguna referencia institucional. Escribe la dirección de tu web y la firma se actualiza; después pulsa «Copiar firma» y pégala en los ajustes de Gmail (Ver todos los ajustes → General → Firma).</p>
+
+  <div class="caja">
+    <label for="web">Dirección de tu web (sin https://). Déjalo vacío para omitirla.</label>
+    <input id="web" type="text" value="alejandroreylab.github.io/portfolio" autocomplete="off">
+  </div>
+
+  <div class="caja">
+    <h2>Vista previa</h2>
+    <div class="correo"><div id="firma"></div></div>
+    <button id="copiar" type="button">Copiar firma</button><span class="estado" id="estado" role="status"></span>
+  </div>
+
+  <div class="caja">
+    <h2>Versión en texto plano</h2>
+    <p>Para clientes de correo que no admiten formato.</p>
+    <textarea id="plano" readonly></textarea>
+  </div>
+
+  <div class="caja">
+    <h2>Notas</h2>
+    <ul>
+      <li>Estructura calcada de una firma institucional: marca a la izquierda, línea vertical, nombre y rol en serif, y etiquetas de color (Web, GitHub) como el «Tel.» de la original.</li>
+      <li>Los colores y la tipografía se definen en línea (atributo style en cada elemento) porque los clientes de correo ignoran las hojas de estilo.</li>
+      <li>El monograma se carga desde la web publicada. Al pegar en Gmail, comprueba que la imagen se vea; si aparece rota, la web aún no está en línea. Para clientes que bloquean imágenes, usa la versión en texto plano.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  const GITHUB = 'github.com/alejandroreylab';
+  const entrada = document.getElementById('web');
+  const zona = document.getElementById('firma');
+  const plano = document.getElementById('plano');
+  const estado = document.getElementById('estado');
+
+  const limpiar = v => v.trim().replace(/^https?:\/\//i, '').replace(/\/+$/, '');
+  const enlace = d => `<a href="https://${d}" style="color:#1f9d78;text-decoration:none;">${d}</a>`;
+
+  const LOGO = 'https://alejandroreylab.github.io/portfolio/img/icon-512.png';
+  const etiqueta = t => `<span style="color:#1f9d78;">${t}</span>`;
+
+  function pintar() {
+    const web = limpiar(entrada.value);
+    const fuente = 'font-family:Georgia,\'Times New Roman\',serif;font-size:14px;line-height:1.55;color:#202124;';
+    const filas = [
+      web && `<div>${etiqueta('Web')}&nbsp; ${enlace(web)}</div>`,
+      `<div>${etiqueta('GitHub')}&nbsp; ${enlace(GITHUB)}</div>`
+    ].filter(Boolean).join('');
+    zona.innerHTML =
+      `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;${fuente}"><tr>` +
+      `<td style="padding:0 18px 0 0;vertical-align:middle;"><img src="${LOGO}" width="64" height="64" alt="AR" style="display:block;border:0;border-radius:12px;"></td>` +
+      `<td style="padding:2px 0 2px 18px;border-left:2px solid #5dcaa5;vertical-align:middle;">` +
+      `<div style="font-weight:bold;font-size:15px;">Alejandro Rey</div>` +
+      `<div>Ingeniero y docente</div>` +
+      `<div style="font-weight:bold;">Tecnolog\u00eda educativa</div>` +
+      `<div style="margin-top:4px;">${filas}</div></td></tr></table>`;
+    plano.value = ['Alejandro Rey', 'Ingeniero y docente', 'Tecnolog\u00eda educativa',
+      web && 'Web: ' + web, 'GitHub: ' + GITHUB].filter(Boolean).join('\n');
+  }
+
+  document.getElementById('copiar').addEventListener('click', () => {
+    const rango = document.createRange();
+    rango.selectNodeContents(zona);
+    const sel = getSelection();
+    sel.removeAllRanges();
+    sel.addRange(rango);
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    sel.removeAllRanges();
+    estado.textContent = ok ? 'Copiada. Pégala en el campo de firma.' : 'No se pudo copiar: selecciónala a mano.';
+  });
+
+  entrada.addEventListener('input', pintar);
+  pintar();
+</script>
+</body>
+</html>

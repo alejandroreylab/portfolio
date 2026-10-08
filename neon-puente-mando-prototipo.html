@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Prototipo — Puente de Mando NEÓN (GSAP + inspiración 21st/UI-UX Pro Max)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+<style>
+  /* Tipografía confirmada por UI/UX Pro Max (--design-system) para el estilo "HUD / Sci-Fi FUI" */
+  :root {
+    --font-display: "Share Tech Mono", monospace;
+    --font-body: "Fira Code", monospace;
+    --bg: #0a0e1a;
+    --panel: #10162a;
+    --grid: #263056;
+    --text: #e8ecf7;
+    --muted: #8892b3;
+    --current: #00e5ff;
+    --completed: #22c55e;
+    --locked: #3a4260;
+    --bracket: #00e5ff;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: radial-gradient(ellipse at 50% 30%, #141b33 0%, var(--bg) 65%);
+    color: var(--text);
+    font-family: var(--font-body);
+    overflow: hidden;
+    position: relative;
+  }
+  #stars {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  }
+  .stage {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem 1rem;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
+  svg { display: block; overflow: visible; }
+  .spoke { stroke: var(--grid); stroke-width: 1.5; fill: none; }
+  .hub-ring { stroke: var(--grid); stroke-width: 1; fill: none; opacity: 0.5; }
+  .hub-label {
+    font-family: var(--font-display);
+    fill: var(--muted);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-anchor: middle;
+    text-transform: uppercase;
+  }
+  .node { cursor: pointer; }
+  .node[aria-disabled="true"] { cursor: not-allowed; }
+  .node:focus-visible { outline: none; }
+  .node:focus-visible .node-circle { stroke-width: 3; filter: drop-shadow(0 0 6px var(--current)); }
+  .node-circle { stroke-width: 2; }
+  .node-circle.completed { fill: rgba(34,197,94,0.12); stroke: var(--completed); }
+  .node-circle.current   { fill: rgba(0,229,255,0.14); stroke: var(--current); }
+  .node-circle.locked    { fill: rgba(58,66,96,0.25); stroke: var(--locked); }
+  .node-label {
+    font-family: var(--font-body);
+    fill: var(--text);
+    font-size: 11px;
+    font-weight: 600;
+    text-anchor: middle;
+  }
+  .node-sub {
+    font-family: var(--font-body);
+    fill: var(--muted);
+    font-size: 9px;
+    text-anchor: middle;
+  }
+  .node-num {
+    font-family: var(--font-display);
+    fill: var(--text);
+    font-size: 15px;
+    font-weight: 400;
+    text-anchor: middle;
+    dominant-baseline: central;
+  }
+  .node-circle.locked ~ .node-num { fill: var(--muted); }
+  .bracket { stroke: var(--bracket); stroke-width: 1.6; fill: none; opacity: 0; }
+  .lock-icon { width: 12px; height: 12px; vertical-align: -1px; margin-right: 0.35rem; }
+  .panel {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100%;
+    width: min(340px, 85vw);
+    background: var(--panel);
+    border-left: 1px solid var(--grid);
+    padding: 1.5rem;
+    box-shadow: -20px 0 40px -10px rgba(0,0,0,0.5);
+    transform: translateX(100%);
+    z-index: 5;
+  }
+  .panel .status {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
+  }
+  .panel .status.completed { background: rgba(34,197,94,0.15); color: var(--completed); }
+  .panel .status.current { background: rgba(0,229,255,0.15); color: var(--current); }
+  .panel h2 { font-family: var(--font-display); font-weight: 400; font-size: 1.1rem; margin: 0 0 0.5rem; }
+  .panel p { color: var(--muted); font-size: 0.85rem; line-height: 1.5; }
+  .panel button.close {
+    position: absolute; top: 1rem; right: 1rem;
+    background: none; border: 1px solid var(--grid); color: var(--muted);
+    width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 0.9rem;
+  }
+  .panel button.close:focus-visible,
+  .toggle input:focus-visible {
+    outline: 2px solid var(--current);
+    outline-offset: 2px;
+  }
+  .toast {
+    position: fixed;
+    bottom: 24px; left: 50%;
+    transform: translate(-50%, 20px);
+    display: inline-flex;
+    align-items: center;
+    background: var(--panel);
+    border: 1px solid var(--grid);
+    color: var(--muted);
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    opacity: 0;
+    z-index: 6;
+    pointer-events: none;
+  }
+  .toggle {
+    position: fixed;
+    top: 16px; left: 16px;
+    display: flex; align-items: center; gap: 0.4rem;
+    font-size: 0.78rem; color: var(--muted);
+    z-index: 4;
+  }
+</style>
+</head>
+<body>
+
+  <canvas id="stars"></canvas>
+
+  <label class="toggle">
+    <input type="checkbox" id="reduceMotion" />
+    Reducir movimiento
+  </label>
+
+  <div class="stage">
+    <h1>Puente de Mando — Mapa de misiones</h1>
+    <svg id="map" width="560" height="560" viewBox="0 0 560 560"></svg>
+  </div>
+
+  <div class="panel" id="panel" aria-hidden="true">
+    <button class="close" id="panelClose">✕</button>
+    <span class="status" id="panelStatus"></span>
+    <h2 id="panelTitle"></h2>
+    <p id="panelDesc"></p>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="./node_modules/gsap/dist/gsap.min.js"></script>
+  <script src="./node_modules/gsap/dist/DrawSVGPlugin.min.js"></script>
+  <script>
+    gsap.registerPlugin(DrawSVGPlugin);
+
+    // ---------- Starfield (inspirado en "Hyperdrive hero" de 21st, versión estática/ligera) ----------
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+    function sizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    sizeCanvas();
+    window.addEventListener("resize", sizeCanvas);
+    const starCount = 120;
+    const stars = Array.from({ length: starCount }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.3 + 0.3,
+      a: Math.random() * 0.6 + 0.15,
+    }));
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach((s) => {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(232,236,247,${s.a})`;
+        ctx.fill();
+      });
+    }
+    drawStars();
+
+    // ---------- Mapa de misiones ----------
+    const svg = document.getElementById("map");
+    const NS = "http://www.w3.org/2000/svg";
+    const cx = 280, cy = 280, spokeR = 210, nodeR = 46;
+
+    const missions = [
+      { title: "Misión 1 · Despertar a bordo", status: "completed", ambito: "Á3 Adquirir", desc: "Narrativa, diagnóstico inicial y radar de 5 ámbitos, fundamentos de IA. Completada." },
+      { title: "Misión 2 · Comunicaciones", status: "current", ambito: "Á3 Adquirir → Profundizar", desc: "Interacción con IA, prompting e iteración, contraste entre pares. En curso." },
+      { title: "Misión 3 · Taller de fabricación", status: "locked", ambito: "Á3 Habilidades de aplicación", desc: "Demo en vivo + producción de imagen, audio y vídeo. Se desbloquea al completar la Misión 2." },
+      { title: "Misión 4 · Ingeniería", status: "locked", ambito: "Á3 Crear con IA", desc: "Instrucciones personalizadas, vibe coding acotado sobre plantilla. Bloqueada." },
+      { title: "Misión 5 · Programa de la colonia", status: "locked", ambito: "Á4 Pedagogía de la IA", desc: "Protocolo ético, Situación de Aprendizaje, galería de colonias y cierre. Bloqueada." },
+    ];
+
+    const angleStep = (Math.PI * 2) / missions.length;
+    const angleFor = (i) => i * angleStep - Math.PI / 2;
+    const pointFor = (angle, r) => [cx + r * Math.cos(angle), cy + r * Math.sin(angle)];
+
+    const el = (tag, attrs, parent = svg) => {
+      const node = document.createElementNS(NS, tag);
+      Object.entries(attrs).forEach(([k, v]) => node.setAttribute(k, v));
+      parent.appendChild(node);
+      return node;
+    };
+
+    // Anillos del hub central
+    [70, 100].forEach((r) => el("circle", { class: "hub-ring", cx, cy, r }));
+    el("text", { class: "hub-label", x: cx, y: cy - 4 }, svg).textContent = "NEÓN";
+    el("text", { class: "hub-label", x: cx, y: cy + 12 }, svg).textContent = "Puente de mando";
+
+    const spokes = [];
+    const nodeGroups = [];
+
+    missions.forEach((m, i) => {
+      const angle = angleFor(i);
+      const [nx, ny] = pointFor(angle, spokeR);
+      const [innerX, innerY] = pointFor(angle, 100);
+
+      const spoke = el("line", { class: "spoke", x1: innerX, y1: innerY, x2: nx, y2: ny });
+      spokes.push(spoke);
+
+      const statusLabel = m.status === "locked" ? "bloqueada" : m.status === "completed" ? "completada" : "en curso";
+      const g = el("g", {
+        class: "node",
+        "data-index": i,
+        tabindex: "0",
+        role: "button",
+        "aria-label": m.title + ", " + statusLabel,
+        "aria-disabled": m.status === "locked" ? "true" : "false",
+      });
+      const circle = el("circle", { class: "node-circle " + m.status, cx: nx, cy: ny, r: nodeR }, g);
+      el("text", { class: "node-num", x: nx, y: ny - 6 }, g).textContent = "M" + (i + 1);
+      el("text", { class: "node-sub", x: nx, y: ny + 10 }, g).textContent = m.status === "locked" ? "Bloqueada" : m.status === "completed" ? "Completada" : "En curso";
+
+      const labelLines = m.title.split(" · ");
+      el("text", { class: "node-label", x: nx, y: ny + nodeR + 18 }, g).textContent = labelLines[1] || labelLines[0];
+
+      // Corchetes de "targeting" (técnica tomada del componente HUD de 21st, adaptada a DrawSVG vanilla)
+      const b = nodeR + 10;
+      const cLen = 12;
+      const brackets = el("g", { class: "brackets" }, g);
+      const corners = [
+        [nx - b, ny - b, nx - b + cLen, ny - b, nx - b, ny - b + cLen],
+        [nx + b, ny - b, nx + b - cLen, ny - b, nx + b, ny - b + cLen],
+        [nx - b, ny + b, nx - b + cLen, ny + b, nx - b, ny + b - cLen],
+        [nx + b, ny + b, nx + b - cLen, ny + b, nx + b, ny + b - cLen],
+      ];
+      const bracketPaths = corners.map(([px, py, hx, hy, vx, vy]) =>
+        el("path", { class: "bracket", d: `M${hx},${hy} L${px},${py} L${vx},${vy}` }, brackets)
+      );
+
+      nodeGroups.push({ g, circle, brackets: bracketPaths, mission: m });
+    });
+
+    // ---------- Estado de movimiento reducido ----------
+    const reduceToggle = document.getElementById("reduceMotion");
+    reduceToggle.checked = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function playIntro() {
+      if (reduceToggle.checked) {
+        gsap.set(spokes, { drawSVG: "100%" });
+        gsap.set(nodeGroups.map((n) => n.g), { opacity: 1, scale: 1 });
+        return;
+      }
+      gsap.set(spokes, { drawSVG: "0%" });
+      gsap.set(nodeGroups.map((n) => n.g), { opacity: 0, scale: 0.7, transformOrigin: "center" });
+      const tl = gsap.timeline();
+      tl.to(spokes, { drawSVG: "100%", duration: 0.5, stagger: 0.08, ease: "power2.out" })
+        .to(nodeGroups.map((n) => n.g), { opacity: 1, scale: 1, duration: 0.45, stagger: 0.07, ease: "back.out(1.6)" }, "-=0.25");
+    }
+    playIntro();
+
+    // ---------- Hover: corchetes de targeting ----------
+    nodeGroups.forEach(({ g, brackets }) => {
+      g.addEventListener("mouseenter", () => {
+        if (reduceToggle.checked) {
+          gsap.set(brackets, { opacity: 1 });
+          return;
+        }
+        gsap.to(brackets, { opacity: 1, duration: 0.2, stagger: 0.03 });
+      });
+      g.addEventListener("mouseleave", () => {
+        gsap.to(brackets, { opacity: 0, duration: 0.15 });
+      });
+    });
+
+    // ---------- Click: panel de misión o aviso de bloqueo ----------
+    const panel = document.getElementById("panel");
+    const panelStatus = document.getElementById("panelStatus");
+    const panelTitle = document.getElementById("panelTitle");
+    const panelDesc = document.getElementById("panelDesc");
+    const toast = document.getElementById("toast");
+    let panelOpen = false;
+
+    // Icono de candado (Phosphor "Lock", outline) en vez de emoji, según checklist de UI/UX Pro Max
+    const LOCK_ICON_SVG = '<svg class="lock-icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">' +
+      '<path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/>' +
+      '</svg>';
+
+    function showToast(msg, { icon = false } = {}) {
+      toast.innerHTML = (icon ? LOCK_ICON_SVG : "") + '<span></span>';
+      toast.querySelector("span").textContent = msg;
+      gsap.killTweensOf(toast);
+      gsap.timeline()
+        .to(toast, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" })
+        .to(toast, { opacity: 0, y: 20, duration: 0.25, ease: "power2.in", delay: 1.4 });
+    }
+
+    function openPanel(mission) {
+      panelStatus.textContent = mission.status === "completed" ? "Completada" : "En curso";
+      panelStatus.className = "status " + mission.status;
+      panelTitle.textContent = mission.title;
+      panelDesc.textContent = mission.desc + "  ·  " + mission.ambito;
+      panel.setAttribute("aria-hidden", "false");
+      panelOpen = true;
+      gsap.to(panel, { x: 0, duration: reduceToggle.checked ? 0 : 0.4, ease: "power3.out" });
+    }
+    function closePanel() {
+      gsap.to(panel, { x: "100%", duration: reduceToggle.checked ? 0 : 0.35, ease: "power3.in" });
+      panel.setAttribute("aria-hidden", "true");
+      panelOpen = false;
+    }
+    document.getElementById("panelClose").addEventListener("click", closePanel);
+
+    nodeGroups.forEach(({ g, mission }) => {
+      const activate = () => {
+        if (mission.status === "locked") {
+          showToast("Bloqueada — completa la misión anterior", { icon: true });
+          gsap.fromTo(g, { x: 0 }, {
+            x: 6, duration: 0.06, repeat: 5, yoyo: true, ease: "power1.inOut",
+            onComplete: () => gsap.set(g, { x: 0 }),
+          });
+          return;
+        }
+        openPanel(mission);
+      };
+      g.addEventListener("click", activate);
+      g.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+          e.preventDefault();
+          activate();
+        }
+      });
+    });
+
+    gsap.set(panel, { x: "100%" });
+  </script>
+</body>
+</html>

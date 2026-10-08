@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paleta v2 — Botón "Aprende", versión discreta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fondo:         #16181b;
+    --panel:         #1e2126;
+    --panel-borde:   #2b2f35;
+    --menta:         #5dcaa5;
+    --menta-apagada: #2a3a34;
+    --ambar:         #fac775;
+    --ambar-fuerte:  #ef9f27;
+    --texto:         #eef0ec;
+    --texto-suave:   #a9aeab;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--fondo);
+    color: var(--texto);
+    font-family: 'IBM Plex Sans', sans-serif;
+    margin: 0;
+    padding: 60px 24px 120px;
+  }
+
+  h1 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 600;
+    font-size: 1.6rem;
+    max-width: 680px;
+    margin: 0 auto 8px;
+  }
+
+  .intro {
+    max-width: 680px;
+    margin: 0 auto 20px;
+    color: var(--texto-suave);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .diagnostico {
+    max-width: 680px;
+    margin: 0 auto 56px;
+    background: var(--panel);
+    border: 1px solid var(--panel-borde);
+    border-left: 3px solid var(--ambar-fuerte);
+    border-radius: 6px;
+    padding: 16px 20px;
+    font-size: 0.88rem;
+    color: var(--texto-suave);
+    line-height: 1.6;
+  }
+  .diagnostico b { color: var(--texto); }
+
+  .muestra {
+    max-width: 760px;
+    margin: 0 auto 60px;
+  }
+
+  .etiqueta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--menta);
+    margin-bottom: 14px;
+  }
+
+  .nav-mock {
+    background: var(--panel);
+    border: 1px solid var(--panel-borde);
+    border-radius: 8px;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    color: var(--texto-suave);
+    text-decoration: none;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.92rem;
+    transition: color 0.2s ease;
+  }
+
+  .nav-links a:hover { color: var(--texto); }
+
+  .nota {
+    max-width: 760px;
+    margin: 14px auto 0;
+    color: var(--texto-suave);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  /* ══ OPCIÓN A — Separador + flecha, mismo peso que el resto ══ */
+  .divisor-a {
+    width: 1px; height: 16px; background: var(--panel-borde); flex: none;
+  }
+  .btn-a {
+    color: var(--texto-suave);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.92rem;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 5px;
+    transition: color 0.2s ease;
+  }
+  .btn-a:hover { color: var(--ambar); }
+  .btn-a .flecha { font-size: 0.8rem; transition: transform 0.2s ease; }
+  .btn-a:hover .flecha { transform: translate(2px, -2px); }
+
+  /* ══ OPCIÓN B — Pista de circuito: subrayado punteado que se ilumina ══ */
+  .btn-b {
+    color: var(--texto-suave);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.92rem;
+    text-decoration: none;
+    padding-bottom: 3px;
+    border-bottom: 1px dashed var(--menta-apagada);
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .btn-b:hover { color: var(--texto); border-bottom-color: var(--menta); border-bottom-style: solid; }
+
+  /* ══ OPCIÓN C — Icono outline minimal, casi invisible en reposo ══ */
+  .btn-c {
+    color: var(--texto-suave);
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; border-radius: 50%;
+    border: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+  .btn-c:hover { color: var(--menta); border-color: var(--panel-borde); background: rgba(93,202,165,0.08); }
+  .btn-c svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+
+  /* ══ OPCIÓN D — Color acento permanente, sin caja ni borde ══ */
+  .btn-d {
+    color: var(--ambar);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.92rem;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 5px;
+    transition: color 0.2s ease;
+  }
+  .btn-d:hover { color: var(--ambar-fuerte); }
+  .btn-d .flecha { font-size: 0.8rem; }
+
+  /* ══ OPCIÓN E — Mono + estrella, sin fondo ni recorte ══ */
+  .btn-e {
+    color: var(--texto-suave);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.86rem;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color 0.2s ease;
+  }
+  .btn-e:hover { color: var(--texto); }
+  .btn-e .estrella {
+    color: var(--ambar);
+    display: inline-block;
+    animation: parpadeo 2.4s ease-in-out infinite;
+  }
+  @keyframes parpadeo {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .comparativa {
+    max-width: 760px;
+    margin: 72px auto 0;
+    padding-top: 40px;
+    border-top: 1px solid var(--panel-borde);
+  }
+  .comparativa table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  .comparativa th, .comparativa td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--panel-borde); }
+  .comparativa th { color: var(--menta); font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 0.78rem; }
+  .comparativa td { color: var(--texto-suave); }
+  .comparativa td:first-child { color: var(--texto); font-weight: 500; }
+</style>
+</head>
+<body>
+
+  <h1>Botón "Aprende" — versión discreta (5 opciones nuevas)</h1>
+  <p class="intro">La opción 5 original (panel con esquina cortada) funciona, pero pesa demasiado frente a enlaces de texto plano como "Herramientas" o "Repositorios": tiene fondo, borde y una forma geométrica propia que ningún otro elemento del nav usa. Estas 5 alternativas mantienen la salida a NEÓN legible pero bajan el peso visual en reposo, y solo "hablan más alto" al pasar el cursor.</p>
+  <p class="diagnostico"><b>Regla aplicada:</b> jerarquía visual — un enlace de navegación no debería competir en peso con el contenido que enlaza. El acento (color, marcador) debe activarse en el estado de interés (hover/focus), no permanecer encendido en reposo salvo que sea deliberadamente la única señal (opción D).</p>
+
+  <!-- OPCIÓN A -->
+  <div class="muestra">
+    <div class="etiqueta">Opción A — Mismo peso que el resto + separador y flecha</div>
+    <div class="nav-mock">
+      <div class="nav-links">
+        <a href="#">Proyectos</a>
+        <a href="#">Formación</a>
+        <a href="#">Competencias</a>
+        <a href="#">Herramientas</a>
+        <span class="divisor-a"></span>
+        <a class="btn-a" href="#">Aprende<span class="flecha">↗</span></a>
+      </div>
+    </div>
+    <p class="nota">Es un enlace más: mismo tamaño, mismo color en reposo. Un separador fino lo agrupa aparte como "vas a otro sitio" y la flecha se desplaza sutilmente al hover. Cero peso extra en reposo.</p>
+  </div>
+
+  <!-- OPCIÓN B -->
+  <div class="muestra">
+    <div class="etiqueta">Opción B — Pista de circuito: subrayado punteado que se enciende</div>
+    <div class="nav-mock">
+      <div class="nav-links">
+        <a href="#">Proyectos</a>
+        <a href="#">Formación</a>
+        <a href="#">Competencias</a>
+        <a href="#">Herramientas</a>
+        <a class="btn-b" href="#">Aprende</a>
+      </div>
+    </div>
+    <p class="nota">Reutiliza tu propia metáfora del circuito (pista apagada / pista iluminada, ya usada en el hero de index.html). En reposo es casi un enlace normal con un trazo discontinuo tenue; al hover, la pista "conduce" y se vuelve sólida en menta.</p>
+  </div>
+
+  <!-- OPCIÓN C -->
+  <div class="muestra">
+    <div class="etiqueta">Opción C — Solo icono, mínimo peso posible</div>
+    <div class="nav-mock">
+      <div class="nav-links">
+        <a href="#">Proyectos</a>
+        <a href="#">Formación</a>
+        <a href="#">Competencias</a>
+        <a href="#">Herramientas</a>
+        <a class="btn-c" href="#" aria-label="Aprende — accede a las formaciones" title="Aprende">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 L20 8 V16 L12 21 L4 16 V8 Z"/><path d="M12 3 V21 M4 8 L20 16 M20 8 L4 16"/></svg>
+        </a>
+      </div>
+    </div>
+    <p class="nota">La opción más ligera de todas: un icono circular sin borde visible en reposo. Requiere <code>aria-label</code> porque no hay texto — en un nav con 8 enlaces de texto, un icono suelto puede pasar desapercibido para quien no lo busca activamente; la recomiendo solo si el resto del nav también fuera a moverse hacia iconografía.</p>
+  </div>
+
+  <!-- OPCIÓN D -->
+  <div class="muestra">
+    <div class="etiqueta">Opción D — Color acento permanente, sin caja</div>
+    <div class="nav-mock">
+      <div class="nav-links">
+        <a href="#">Proyectos</a>
+        <a href="#">Formación</a>
+        <a href="#">Competencias</a>
+        <a href="#">Herramientas</a>
+        <a class="btn-d" href="#">Aprende<span class="flecha">↗</span></a>
+      </div>
+    </div>
+    <p class="nota">Mismo tratamiento tipográfico que el resto (sin fondo, sin borde), pero con el color ámbar ya encendido en reposo — igual que usas <code>.actual</code> para marcar la página en la que estás. Se distingue por color, no por forma; es la opción con más presencia de esta lista, pero sigue siendo un simple enlace.</p>
+  </div>
+
+  <!-- OPCIÓN E -->
+  <div class="muestra">
+    <div class="etiqueta">Opción E — Mono + estrella, sin fondo ni recorte</div>
+    <div class="nav-mock">
+      <div class="nav-links">
+        <a href="#">Proyectos</a>
+        <a href="#">Formación</a>
+        <a href="#">Competencias</a>
+        <a href="#">Herramientas</a>
+        <a class="btn-e" href="#"><span class="estrella">✦</span>Aprende</a>
+      </div>
+    </div>
+    <p class="nota">Conserva la idea de "señal de radar" de la paleta original (estrella parpadeante) y el monospace que ya usas en etiquetas técnicas del sitio, pero quita por completo el panel y el recorte de esquina. Es la opción intermedia: se lee distinta sin convertirse en un botón.</p>
+  </div>
+
+  <div class="comparativa">
+    <div class="etiqueta">Comparativa rápida</div>
+    <table>
+      <tr><th>Opción</th><th>Peso en reposo</th><th>Se apoya en</th><th>Cuándo elegirla</th></tr>
+      <tr><td>A · Separador + flecha</td><td>Muy bajo</td><td>Separador + micro-animación</td><td>Quieres que sea "uno más" del nav</td></tr>
+      <tr><td>B · Pista de circuito</td><td>Bajo</td><td>Metáfora visual del sitio</td><td>Quieres coherencia con el hero</td></tr>
+      <tr><td>C · Solo icono</td><td>Mínimo</td><td>Icono + aria-label</td><td>Nav ya saturado, buscas máxima discreción</td></tr>
+      <tr><td>D · Color permanente</td><td>Medio</td><td>Color ámbar fijo</td><td>Quieres que destaque un poco pero sin forma</td></tr>
+      <tr><td>E · Mono + estrella</td><td>Bajo-medio</td><td>Tipografía + señal parpadeante</td><td>Punto medio entre A y la opción 5 original</td></tr>
+    </table>
+  </div>
+
+</body>
+</html>
